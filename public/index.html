@@ -1,0 +1,59 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='index.css'/>
+    <script src= "./cytoscape.min.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  </head>
+  <body>
+    <div id = 'container'>
+	    <h1>LifeNet</h1>
+	    <h2>We give eachother life.</h2>
+
+	    <h4>Because politicians, employers, landlords, police, etc. don't love us like we love us.</h4>
+	    <div id="cy"></div>
+
+    <form action='/addNode1' method="post">
+      <input type="text" name="name" value="Name">
+      <input type='submit' value="submit">
+    </form>
+
+
+ <div data-role="main" class="ui-content">
+    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ui-btn-icon-left">Popup!!</a>
+
+    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+      <form method="post" action="/nodeForm">
+        <div>
+          <h3>Node information</h3>
+          
+          <label for="usrnm" class="ui-hidden-accessible">Node Name</label>
+          <input type="text" name="nodename" id="usrnm" placeholder="Node Name">
+
+          <label for="pswd" class="ui-hidden-accessible">Node Group</label>
+          <input type="password" name="nodegroup" id="pswd" placeholder="Node Group">
+
+          <label for="log">Keep me logged in</label>
+          <input type="checkbox" name="login" id="log" value="1" data-mini="true">
+
+          <input type="submit" data-inline="true" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+<!--       <button class='checkBtns' id='addFood' onclick='changeClass(this.id)'>Add Food</button>
+ -->	</div>
+
+
+  <script src='bundle.js'></script>
+  </body>
+</html>
