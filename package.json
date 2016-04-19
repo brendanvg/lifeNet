@@ -11,6 +11,10 @@
   "dependencies": {
     "body": "^5.1.0",
     "body-parser": "^1.15.0",
-    "cors": "^2.7.1"
+    "collect-stream": "^1.1.1",
+    "concat-stream": "^1.5.1",
+    "cors": "^2.7.1",
+    "hyperquest": "^1.3.0",
+    "levelup": "^1.3.1"
   }
 }

@@ -4,10 +4,10 @@ var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
 var db = levelup('./mydb')
-
 var corsOption = {
 	origin: 'http://localhost:5001'
 }
+var collect = require('collect-stream')
 
 app.use(express.static('public'))
 // app.use(express.bodyParser.json())
@@ -15,6 +15,15 @@ app.use(express.static('public'))
 app.get('/', function(req,res){
 	res.sendfile('index.html')
 })
+
+app.get('/loadNodes', cors(corsOption), function(req,res,next){
+	var stream = db.createReadStream()
+	collect(stream, (err,data) => {
+		res.writeHead(200, {'content-type': 'application/JSON'})
+      res.end(JSON.stringify(data))
+    }) 
+})
+
 app.post('/addNode', cors(corsOption), function(req,res,next){
 	console.log('done!')
 })
@@ -23,8 +32,9 @@ app.post('/nodeForm', cors(corsOption), function(req,res,next){
 	body(req,res, function(err,params){
 		var nodeName = params.nodename
 		var nodeGroup = params.nodegroup
-		db.put(nodeName, nodegroup, function (err){
+		db.put(nodeName, nodeGroup, function (err){
 			if (err) return console.log(err)
+			console.log(nodeName, nodeGroup)
 		})
 	})
 })
