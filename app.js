@@ -24,6 +24,14 @@ app.get('/loadNodes', cors(corsOption), function(req,res,next){
     }) 
 })
 
+app.post('/nodeForm3', cors(corsOption), function(req,res,next){
+		body(req,res, function(err,params){
+			console.log('ooooooowwww',params)
+		})
+	res.end()
+})
+
+
 
 app.post('/nodeForm', cors(corsOption), function(req,res,next){
 	body(req,res, function(err,params){

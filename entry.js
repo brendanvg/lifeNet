@@ -17,7 +17,8 @@ var uh = document.getElementById('uh')
 uh.addEventListener('click', function(){console.log('fuuu')})
 
 
-
+var postJson1=document.getElementById("postJson1")
+postJson1.addEventListener("click", lnf.post)
 // var addNode = document.getElementById('addNodeBtn')
 // addNode.addEventListener('click',addNodeFun)
 // function addNodeFun(){

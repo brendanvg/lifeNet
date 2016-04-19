@@ -3,6 +3,14 @@ var hyperquest= require('hyperquest')
 var catS = require('concat-stream')
 var gnfModule = require('./genericNetFunctions.js')
 var gnf = gnfModule()
+var postJson = require('post-json')
+
+
+var url = 'http://localhost:5003/nodeForm3'
+var name= document.getElementById('nodeId')
+ 
+var body = {my: name}
+
 
 module.exports =
 
@@ -14,7 +22,15 @@ function initialize(){
 
 	return {
 		loadNodes:loadNodes,
+		post: post,
   	}
+
+		
+  	function post(){
+  		postJson(url, body, function (err, result) {
+  			console.log('ooobab')
+		})
+	}
 
 		
 	function loadNodes(){

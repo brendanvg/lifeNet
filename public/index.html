@@ -26,28 +26,52 @@
 <!-- 
   <input id='name' placeholder='Name'></input>
   <button id='addNodeBtn'>Add Node</button> -->
-
+<p>Node ID</p>
+<input id='nodeId' type='text'></input>
+<button id= 'postJson1'>Post Json</button>
 
  <div data-role="main" class="ui-content">
     <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ui-btn-icon-left">Popup!!</a>
 
     <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
-      <form method="post" action="/nodeForm">
-        <div>
-          <h3>Node information</h3>
-          
-          <label for="usrnm" class="ui-hidden-accessible">Node Name</label>
-          <input id ='name' type="text" name="nodename"placeholder="Node Name">
+      <form action="" method="post">
+    <p>Name</p><input type="text" name="name" />
+    <button>Submit</button>
+  </form>
 
-          <label for="pswd" class="ui-hidden-accessible">Node Group</label>
-          <input type="text" name="nodegroup" placeholder="Node Group">
 
-          <label for="log">Keep me logged in</label>
-          <input type="checkbox" name="login" value="1" data-mini="true">
+<script type="text/javascript">
+$(document).ready(function() {
+  var form = $('#form'); // contact form
+  var submit = $('#submit');  // submit button
+  var alert = $('.alert'); // alert div for show alert message
 
-          <input id= 'addNodeBtn' type="submit" data-inline="true" value="Submit">
-        </div>
-      </form>
+  // form submit event
+  form.on('submit', function(e) {
+    e.preventDefault(); // prevent default form submit
+
+    $.ajax({
+      url: '/formSubmit', // form action url
+      type: 'POST', // form submit method get/post
+      dataType: 'html', // request type html/json/xml
+      data: form.serialize(), // serialize form data 
+      beforeSend: function() {
+        alert.fadeOut();
+        submit.html('Sending....'); // change submit button text
+      },
+      success: function(data) {
+        alert.html(data).fadeIn(); // fade in response data
+        form.trigger('reset'); // reset form
+        submit.html('Send Email'); // reset submit button text
+      },
+      error: function(e) {
+        console.log(e)
+      }
+    });
+  });
+});
+</script>
+
     </div>
   </div>
 
