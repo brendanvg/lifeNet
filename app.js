@@ -24,12 +24,10 @@ app.get('/loadNodes', cors(corsOption), function(req,res,next){
     }) 
 })
 
-app.post('/addNode', cors(corsOption), function(req,res,next){
-	console.log('done!')
-})
 
 app.post('/nodeForm', cors(corsOption), function(req,res,next){
 	body(req,res, function(err,params){
+		console.log('param2',params)
 		var nodeName = params.nodename
 		var nodeGroup = params.nodegroup
 		db.put(nodeName, nodeGroup, function (err){
@@ -37,6 +35,8 @@ app.post('/nodeForm', cors(corsOption), function(req,res,next){
 			console.log(nodeName, nodeGroup)
 		})
 	})
+	console.log('query',req.query)
+
 })
 
 app.listen(5003, function(){

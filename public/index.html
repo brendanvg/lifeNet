@@ -18,10 +18,14 @@
 	    <h4>Because politicians, employers, landlords, police, etc. don't love us like we love us.</h4>
 	    <div id="cy"></div>
 
-    <form action='/addNode1' method="post">
+   <!--  <form action='/addNode1' method="post">
       <input type="text" name="name" value="Name">
       <input type='submit' value="submit">
     </form>
+ -->
+<!-- 
+  <input id='name' placeholder='Name'></input>
+  <button id='addNodeBtn'>Add Node</button> -->
 
 
  <div data-role="main" class="ui-content">
@@ -33,7 +37,7 @@
           <h3>Node information</h3>
           
           <label for="usrnm" class="ui-hidden-accessible">Node Name</label>
-          <input type="text" name="nodename"placeholder="Node Name">
+          <input id ='name' type="text" name="nodename"placeholder="Node Name">
 
           <label for="pswd" class="ui-hidden-accessible">Node Group</label>
           <input type="text" name="nodegroup" placeholder="Node Group">
@@ -41,11 +45,12 @@
           <label for="log">Keep me logged in</label>
           <input type="checkbox" name="login" value="1" data-mini="true">
 
-          <input type="submit" data-inline="true" value="Submit">
+          <input id= 'addNodeBtn' type="submit" data-inline="true" value="Submit">
         </div>
       </form>
     </div>
   </div>
+
 
 <button id='loadNode2'>LoadNodes</button> 
 
