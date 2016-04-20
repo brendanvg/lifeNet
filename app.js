@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./mydb')
+var db = levelup('./mydb3')
 var corsOption = {
 	origin: 'http://localhost:5001'
 }
@@ -26,9 +26,13 @@ app.get('/loadNodes', cors(corsOption), function(req,res,next){
 
 app.post('/nodeForm3', cors(corsOption), function(req,res,next){
 		body(req,res, function(err,params){
-			console.log('ooooooowwww',params)
+			console.log('ooooooowwww',params.nodeName)
+			db.put(params.nodeName, params.nodeGroup, function(err){
+				if (err) return console.log(err)
+				console.log('successfully put ',params.nodeName)
+			})
 		})
-	res.end()
+		res.end()
 })
 
 

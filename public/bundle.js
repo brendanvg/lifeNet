@@ -19,7 +19,7 @@ uh.addEventListener('click', function(){console.log('fuuu')})
 
 
 var postJson1=document.getElementById("postJson1")
-postJson1.addEventListener("click", lnf.post)
+postJson1.addEventListener("click", lnf.createNewNode)
 // var addNode = document.getElementById('addNodeBtn')
 // addNode.addEventListener('click',addNodeFun)
 // function addNodeFun(){
@@ -125,10 +125,7 @@ var gnf = gnfModule()
 var postJson = require('post-json')
 
 
-var url = 'http://localhost:5003/nodeForm3'
-var name= document.getElementById('nodeId')
- 
-var body = {my: name}
+
 
 
 module.exports =
@@ -141,14 +138,31 @@ function initialize(){
 
 	return {
 		loadNodes:loadNodes,
-		post: post,
+		createNewNode: createNewNode,
   	}
 
-		
-  	function post(){
+	function addNode (name) {
+		cy.add({
+        group:"nodes",
+        data: {
+          weight:75,
+          id:name,
+        },
+        position: {x: 200, y : 200},
+    	})
+	}		
+
+  	function createNewNode(){
+  		var name= document.getElementById('nodeName').value
+  		var group = document.getElementById('nodeGroup').value
+  		var url = 'http://localhost:5003/nodeForm3'
+		var body = {nodeName: name, nodeGroup: group}
+
+  		console.log('name is', name)
   		postJson(url, body, function (err, result) {
   			console.log('ooobab')
 		})
+		addNode(name)
 	}
 
 		
@@ -166,17 +180,6 @@ function initialize(){
 	        		console.log('key is '+key)
 	    			console.log('value is '+value)
 	    			addNode(key)
-
-	    			function addNode (key) {
-	    				cy.add({
-				        group:"nodes",
-				        data: {
-				          weight:75,
-				          id:key,
-				        },
-				        position: {x: 200, y : 200},
-				    	})
-	    			}	
 	    		}
 	    	})
 	    )

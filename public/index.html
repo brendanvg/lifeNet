@@ -27,7 +27,9 @@
   <input id='name' placeholder='Name'></input>
   <button id='addNodeBtn'>Add Node</button> -->
 <p>Node ID</p>
-<input id='nodeId' type='text'></input>
+<input id='nodeName' type='text'></input>
+<input id='nodeGroup' type='text'></input>
+
 <button id= 'postJson1'>Post Json</button>
 
  <div data-role="main" class="ui-content">
@@ -39,7 +41,13 @@
     <button>Submit</button>
   </form>
 
+<script type='text/javascript'>
+  $('#postJson1').on('click', function(event){
+    event.preventDefault()
+  })
+</script>
 
+<!--
 <script type="text/javascript">
 $(document).ready(function() {
   var form = $('#form'); // contact form
@@ -71,6 +79,7 @@ $(document).ready(function() {
   });
 });
 </script>
+-->
 
     </div>
   </div>
