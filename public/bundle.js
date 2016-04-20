@@ -20,29 +20,7 @@ uh.addEventListener('click', function(){console.log('fuuu')})
 
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)
-// var addNode = document.getElementById('addNodeBtn')
-// addNode.addEventListener('click',addNodeFun)
-// function addNodeFun(){
-//   var nodeName=document.getElementById('name').value
-//   gnf.addNode(nodeName)
-// }
 
-
-
-
-
-// var addNode = document.getElementById('addNodeBtn')
-// addNode.addEventListener('click',addNodeFun)
-
-// function addNodeFun(){
-//   var nodeName=document.getElementById('name').value
-//  function SendData(url, data) {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('POST', url, true)
-//     xhr.send(data)
-//   }
-//   SendData('/addNode', nodeName)
-// }
 },{"./genericNetFunctions.js":2,"./lifeNetFunctions.js":3,"http":79,"http-post":48,"node-xhr":41}],2:[function(require,module,exports){
 var cytoscape = require('cytoscape')
 
@@ -123,10 +101,6 @@ var catS = require('concat-stream')
 var gnfModule = require('./genericNetFunctions.js')
 var gnf = gnfModule()
 var postJson = require('post-json')
-
-
-
-
 
 module.exports =
 

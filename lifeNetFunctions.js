@@ -5,10 +5,6 @@ var gnfModule = require('./genericNetFunctions.js')
 var gnf = gnfModule()
 var postJson = require('post-json')
 
-
-
-
-
 module.exports =
 
 function initialize(){
