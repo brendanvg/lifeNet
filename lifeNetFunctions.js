@@ -16,6 +16,7 @@ function initialize(){
 	return {
 		loadNodes:loadNodes,
 		createNewNode: createNewNode,
+		savePositions:savePositions,
   	}
 
 	function addNode (name) {
@@ -32,12 +33,10 @@ function initialize(){
   	function createNewNode(){
   		var name= document.getElementById('nodeName').value
   		var group = document.getElementById('nodeGroup').value
-  		var url = 'http://localhost:5003/nodeForm3'
+  		var url = 'http://localhost:5003/addNode'
 		var body = {nodeName: name, nodeGroup: group}
 
-  		console.log('name is', name)
   		postJson(url, body, function (err, result) {
-  			console.log('ooobab')
 		})
 		addNode(name)
 	}
@@ -61,6 +60,27 @@ function initialize(){
 	    	})
 	    )
 	}
+
+	function savePositions(){
+		cy.nodes().forEach(function(ele){
+			console.log( ele.id() )
+			var id= ele.id()
+			var positionObject= ele.renderedPosition()
+			
+
+			var url = 'http://localhost:5003/savePositions'
+			var body= {name:id, positionObject}
+
+			postJson(url,body,function(err,result){
+				console.log('client side positions posted')
+			})
+
+		})
+	}
+
+
+
+
 }
 
 

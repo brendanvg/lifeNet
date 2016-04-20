@@ -8,20 +8,20 @@ function initializeNet() {
   var cy= window.cy = cytoscape({
   	container: document.getElementById('cy'),
   	elements: [
-  		{//NODES
-  			data: {id: 'Me'}, 
-        position: {x: 400, y : 200},
-  		},
-  		{
-  			data:{id:'Mom'}
-  		},
-  		{
-  			data:{id:'Aunt G'}
-  		},
-       // EDGES
-      {
-  			data:{id:'momMe', source:'Mom', target:'Me'}
-  		},
+  		// {//NODES
+  		// 	// data: {id: 'Me'}, 
+    //  //    position: {x: 400, y : 200},
+  		// },
+  		// {
+  		// 	// data:{id:'Mom'}
+  		// },
+  		// {
+  		// 	// data:{id:'Aunt G'}
+  		// },
+    //    // EDGES
+    //   {
+  		// 	data:{id:'momMe', source:'Mom', target:'Me'}
+  		// },
 
   	],
   	style: [

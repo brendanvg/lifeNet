@@ -13,5 +13,8 @@ cy.style().selector('node:selected').style('background-color', 'magenta')
 var loadNode2=document.getElementById("loadNode2")
 loadNode2.addEventListener("click", lnf.loadNodes)
 
+var savePositions=document.getElementById('savePositions')
+savePositions.addEventListener('click', lnf.savePositions)
+
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)

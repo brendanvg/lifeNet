@@ -1,0 +1,5 @@
+set max zoom out
+ 
+
+
+resolve if value (in database) of a node is undefined, what to do (it will throw an error about not being able to read undefined when you try to add other things on...for example -> A node does not have a group name, but I want to add a position to it (by pushing it to the value array)....it will fail, with cannot read undefined.) ---solution?-> require all values

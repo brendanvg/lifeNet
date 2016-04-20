@@ -14,6 +14,9 @@ cy.style().selector('node:selected').style('background-color', 'magenta')
 var loadNode2=document.getElementById("loadNode2")
 loadNode2.addEventListener("click", lnf.loadNodes)
 
+var savePositions=document.getElementById('savePositions')
+savePositions.addEventListener('click', lnf.savePositions)
+
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)
 
@@ -28,20 +31,20 @@ function initializeNet() {
   var cy= window.cy = cytoscape({
   	container: document.getElementById('cy'),
   	elements: [
-  		{//NODES
-  			data: {id: 'Me'}, 
-        position: {x: 400, y : 200},
-  		},
-  		{
-  			data:{id:'Mom'}
-  		},
-  		{
-  			data:{id:'Aunt G'}
-  		},
-       // EDGES
-      {
-  			data:{id:'momMe', source:'Mom', target:'Me'}
-  		},
+  		// {//NODES
+  		// 	// data: {id: 'Me'}, 
+    //  //    position: {x: 400, y : 200},
+  		// },
+  		// {
+  		// 	// data:{id:'Mom'}
+  		// },
+  		// {
+  		// 	// data:{id:'Aunt G'}
+  		// },
+    //    // EDGES
+    //   {
+  		// 	data:{id:'momMe', source:'Mom', target:'Me'}
+  		// },
 
   	],
   	style: [
@@ -109,6 +112,7 @@ function initialize(){
 	return {
 		loadNodes:loadNodes,
 		createNewNode: createNewNode,
+		savePositions:savePositions,
   	}
 
 	function addNode (name) {
@@ -125,12 +129,10 @@ function initialize(){
   	function createNewNode(){
   		var name= document.getElementById('nodeName').value
   		var group = document.getElementById('nodeGroup').value
-  		var url = 'http://localhost:5003/nodeForm3'
+  		var url = 'http://localhost:5003/addNode'
 		var body = {nodeName: name, nodeGroup: group}
 
-  		console.log('name is', name)
   		postJson(url, body, function (err, result) {
-  			console.log('ooobab')
 		})
 		addNode(name)
 	}
@@ -154,6 +156,27 @@ function initialize(){
 	    	})
 	    )
 	}
+
+	function savePositions(){
+		cy.nodes().forEach(function(ele){
+			console.log( ele.id() )
+			var id= ele.id()
+			var positionObject= ele.renderedPosition()
+			
+
+			var url = 'http://localhost:5003/savePositions'
+			var body= {name:id, positionObject}
+
+			postJson(url,body,function(err,result){
+				console.log('client side positions posted')
+			})
+
+		})
+	}
+
+
+
+
 }
 
 
