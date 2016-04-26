@@ -56,7 +56,7 @@ function initialize(){
 		  		postJson(url, body, function (err, result) {
 				})
 				addNode(name)
-				savePositions()
+				// savePositions()
 			}
 			else alert('Name and group are both required')
 	}

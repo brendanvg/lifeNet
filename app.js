@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./mydb16')
+var db = levelup('./mydb20')
 var corsOption = {
 	origin: 'http://localhost:5001'
 }
@@ -26,10 +26,10 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 	body(req,res, function(err,params){
 		console.log('ooooooowwww',params.nodeName)
 
-		var value1 = params.nodeGroup+','+200+','+200
-		db.put(params.nodeName, params.nodeGroup, function(err){
+		var value11 = params.nodeGroup+','+200+','+200
+		db.put(params.nodeName, value11, function(err){
 			if (err) return console.log(err)
-			console.log('successfully put ',params.nodeName)
+			console.log('successfully put ',params.nodeName, value11)
 		})
 	})
 	res.end()
@@ -49,22 +49,16 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 			console.log('key of db id ', value)
 			var value1=value
 			var valArray= value1.split(',')
-			console.log(valArray)
-			if (valArray.length = 1) {
-				console.log('one long')
-
-			}  
-			
-			if (valArray.length =3){
-				console.log('2 long')
-			}
-			
+			console.log('valllll array', valArray)
+			valArray[1]=x
+			valArray[2]=y
+			console.log('updated x and y', valArray[1], valArray[2])
 
 			// var newValue= value1+','+x+','+y
 
-			// db.put(nodeName, newValue, function(err){
-			// 	if (err) return console.log('err= ',err)
-			// })
+			db.put(nodeName, valArray, function(err){
+				if (err) return console.log('err= ',err)
+			})
 
 		})
 	})
