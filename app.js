@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./mydb8')
+var db = levelup('./mydb16')
 var corsOption = {
 	origin: 'http://localhost:5001'
 }
@@ -26,6 +26,7 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 	body(req,res, function(err,params){
 		console.log('ooooooowwww',params.nodeName)
 
+		var value1 = params.nodeGroup+','+200+','+200
 		db.put(params.nodeName, params.nodeGroup, function(err){
 			if (err) return console.log(err)
 			console.log('successfully put ',params.nodeName)
@@ -47,15 +48,24 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 		db.get(nodeName, function(err,value){
 			console.log('key of db id ', value)
 			var value1=value
-			var newValue= value1+','+x+','+y
+			var valArray= value1.split(',')
+			console.log(valArray)
+			if (valArray.length = 1) {
+				console.log('one long')
 
-			db.put(nodeName, newValue, function(err){
-				if (err) return console.log('err= ',err)
-			})
+			}  
+			
+			if (valArray.length =3){
+				console.log('2 long')
+			}
+			
 
-			//SPLIT THE VALUE STRING INTO ARRAY and Identify []
-			// var array=newValue.split(',')
-			// console.log(array[0],'x= ', array[1], 'y= ', array[2])
+			// var newValue= value1+','+x+','+y
+
+			// db.put(nodeName, newValue, function(err){
+			// 	if (err) return console.log('err= ',err)
+			// })
+
 		})
 	})
 	res.end()

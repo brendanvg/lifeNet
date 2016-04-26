@@ -55,7 +55,7 @@ function initializeNet() {
   }
 
   
-  function addNode(nodeName){
+  function addNode(nodeName, position){
     cy.add({
         group:"nodes",
         data: {
