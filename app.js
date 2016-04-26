@@ -14,6 +14,8 @@ app.get('/', function(req,res){
 	res.sendfile('index.html')
 })
 
+// db=key=nodeId, value= 'group, x, y, !connected,!,connected'
+
 app.get('/loadNodes', cors(corsOption), function(req,res,next){
 	var stream = db.createReadStream()
 	collect(stream, (err,data) => {
@@ -33,6 +35,14 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 		})
 	})
 	res.end()
+})
+
+app.post('/addEdge', cors(corsOption), function(req,res,next){
+	body(req,res,function(err,params){
+		console.log('yeaaa',params)
+
+		db.get
+	})
 })
 
 app.post('/savePositions', cors(corsOption), function(req,res,next){

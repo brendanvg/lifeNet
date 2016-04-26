@@ -20,6 +20,37 @@ savePositions.addEventListener('click', lnf.savePositions)
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)
 
+
+
+//nClicked=false, first click, true,second click
+var nClicked = false;
+var firstNode = {}
+var secondNode = {}
+
+cy.on('tap', 'node', function(evt){
+  if (nClicked) {
+    nClicked = false
+	console.log('byee')
+    var secondNode = evt.cyTarget
+    var secondNodeId = secondNode.id()
+    var firstNodeId= firstNode.id()
+
+    console.log('nodes2',firstNodeId, secondNodeId)
+  
+	lnf.addNewEdge(firstNodeId, secondNodeId)  
+    // gnf.addDirectedEdge(firstNodeId, secondNodeId)
+
+  }
+
+  else 
+  {
+    var node1= evt.cyTarget
+    nClicked=true
+    firstNode= evt.cyTarget
+    console.log('hiii')
+
+  }
+})
 },{"./genericNetFunctions.js":2,"./lifeNetFunctions.js":3,"http":79,"http-post":48,"node-xhr":41}],2:[function(require,module,exports){
 var cytoscape = require('cytoscape')
 
@@ -75,6 +106,7 @@ function initializeNet() {
 
   return {
     addNode: addNode,
+    addDirectedEdge: addDirectedEdge,
   }
 
   
@@ -89,6 +121,16 @@ function initializeNet() {
 
     })
   }
+
+  function addDirectedEdge(source,target) {
+     cy.add({
+      data: {
+        source: source,
+        target: target
+      }
+    })
+  }
+
 }
 
 
@@ -113,6 +155,7 @@ function initialize(){
 		loadNodes:loadNodes,
 		createNewNode: createNewNode,
 		savePositions:savePositions,
+		addNewEdge: addNewEdge,
   	}
 
 	function addNode (name) {
@@ -155,6 +198,15 @@ function initialize(){
 				// savePositions()
 			}
 			else alert('Name and group are both required')
+	}
+
+	function addNewEdge(firstNodeId, secondNodeId) {
+		var url = 'http://localhost:5003/addEdge'
+		var body = {firstNode: firstNodeId, secondNode:secondNodeId} 
+
+		postJson(url,body, function(err,result){
+		})
+
 	}
 
 		

@@ -17,6 +17,7 @@ function initialize(){
 		loadNodes:loadNodes,
 		createNewNode: createNewNode,
 		savePositions:savePositions,
+		addNewEdge: addNewEdge,
   	}
 
 	function addNode (name) {
@@ -59,6 +60,15 @@ function initialize(){
 				// savePositions()
 			}
 			else alert('Name and group are both required')
+	}
+
+	function addNewEdge(firstNodeId, secondNodeId) {
+		var url = 'http://localhost:5003/addEdge'
+		var body = {firstNode: firstNodeId, secondNode:secondNodeId} 
+
+		postJson(url,body, function(err,result){
+		})
+
 	}
 
 		

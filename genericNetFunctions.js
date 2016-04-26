@@ -52,6 +52,7 @@ function initializeNet() {
 
   return {
     addNode: addNode,
+    addDirectedEdge: addDirectedEdge,
   }
 
   
@@ -66,6 +67,16 @@ function initializeNet() {
 
     })
   }
+
+  function addDirectedEdge(source,target) {
+     cy.add({
+      data: {
+        source: source,
+        target: target
+      }
+    })
+  }
+
 }
 
 
