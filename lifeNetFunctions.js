@@ -20,6 +20,7 @@ function initialize(){
 		savePositions:savePositions,
 		addNewEdge: addNewEdge,
 		test: test,
+		clear: clear,
   	}
 
 	function test () {
@@ -29,6 +30,9 @@ function initialize(){
 		postJson(url,body, function(err,result){
 		})
 
+	}
+	function clear(){
+		cy.nodes().remove()
 	}
 
 	function addNode (name) {
@@ -115,6 +119,7 @@ function initialize(){
 						var x2= Number(array[1])
 		     			var y2 = Number(array[2])
 		     			console.log('important',x2,y2)
+		     			
 		  				// addPositionedNode(key,x,y)
 		  				// addNode(key)
 		  				// addNode()
@@ -127,6 +132,7 @@ function initialize(){
 					          id:key,
 					        },
 					        position: {x: x2, y : y2},
+					        classes:'',
 					    })
 		  			}
 	    		}
@@ -195,17 +201,17 @@ function initialize(){
 							    })
 		    				}
 		    			}
-		    			for (k=0; k<outEdges2.length; k++){
-		    				if (outEdges2[k] != ''){
-		    					console.log('outers', outEdges2[k])
-		    					cy.add({
-		    						data: {
-		    							source: key,
-		    							target: outEdges2[k]
-		    						}
-		    					})
-		    				}
-		    			}
+		    			// for (k=0; k<outEdges2.length; k++){
+		    			// 	if (outEdges2[k] != ''){
+		    			// 		console.log('outers', outEdges2[k])
+		    			// 		cy.add({
+		    			// 			data: {
+		    			// 				source: key,
+		    			// 				target: outEdges2[k]
+		    			// 			}
+		    			// 		})
+		    			// 	}
+		    			// }
 		    		// }
 	    		}
 	    	})

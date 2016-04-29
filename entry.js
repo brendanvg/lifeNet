@@ -26,6 +26,8 @@ postJson1.addEventListener("click", lnf.createNewNode)
 var test = document.getElementById('test')
 test.addEventListener('click',lnf.test)
 
+var clear = document.getElementById('clear')
+clear.addEventListener('click', lnf.clear)
 
 //nClicked=false, first click, true,second click
 var nClicked = false;

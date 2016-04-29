@@ -3,8 +3,8 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./mydb34')
-var edgesDb = levelup('./edgesDb7')
+var db = levelup('./mydb35')
+var edgesDb = levelup('./edgesDb8')
 
 var corsOption = {
 	origin: 'http://localhost:5003'
