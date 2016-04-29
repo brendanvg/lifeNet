@@ -119,11 +119,7 @@ function initialize(){
 						var x2= Number(array[1])
 		     			var y2 = Number(array[2])
 		     			console.log('important',x2,y2)
-		     			
-		  				// addPositionedNode(key,x,y)
-		  				// addNode(key)
-		  				// addNode()
-		  				// console.log('adding')
+
 
 		  				cy.add({
 					        group:"nodes",
@@ -150,27 +146,7 @@ function initialize(){
 	    		console.log('thisisy', y)
 	    		console.log('type', typeof y)
 	    		console.log('length of y', y.length)
-	    	// 	for (i=0; i<y.length; i++){
-	    	// 		console.log('keyyy', y[i].key)
-	    	// 		var key = y[i].key
-	    	// 		var value = y[i].value
-	     //    		console.log('key is '+key)
-	    	// 		console.log('value is '+value)
-	    	// 		var array1= value.split('!')
-	    	// 		var inEdges = array1[0]
-	    	// 		var outEdges= array1[1]
-
-	    	// 		console.log('woot',array1)
-	    	// 		var inEdges2= inEdges.split(',')
-	    	// 		var outEdges2= outEdges.split(',')
-	    	// 		console.log('donedone',inEdges2)
-	    	// 		console.log('orrr', outEdges2)
-	    	//  		for (j=0; j<inEdges2.length; j++){
-						// if (inEdges2[j] != ''){
-		    // 			console.log('inners',inEdges2[j])
-		    // 			}
-		    // 		}
-	    	// 	}
+	   
 
 
 	    		for (i = 0; i<y.length; i++){
@@ -201,18 +177,6 @@ function initialize(){
 							    })
 		    				}
 		    			}
-		    			// for (k=0; k<outEdges2.length; k++){
-		    			// 	if (outEdges2[k] != ''){
-		    			// 		console.log('outers', outEdges2[k])
-		    			// 		cy.add({
-		    			// 			data: {
-		    			// 				source: key,
-		    			// 				target: outEdges2[k]
-		    			// 			}
-		    			// 		})
-		    			// 	}
-		    			// }
-		    		// }
 	    		}
 	    	})
 	    )
@@ -223,18 +187,14 @@ function initialize(){
 			console.log( ele.id() )
 			var id= ele.id()
 			var positionObject= ele.renderedPosition()
-			
-
 			var url = 'http://localhost:5003/savePositions'
 			var body= {name:id, positionObject}
 
 			postJson(url,body,function(err,result){
 				console.log('client side positions posted')
 			})
-
 		})
 	}
-
 
 }
 
