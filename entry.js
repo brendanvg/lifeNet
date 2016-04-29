@@ -6,6 +6,7 @@ var gnf = gnfModule()
 var lnf = lnfModule()
 var xhr= require('node-xhr')
 
+//ALL GRAPH SELECTION IS DONE HERE 
 
 cy.style().selector('node:selected').style('background-color', 'magenta')
 

@@ -1,6 +1,8 @@
 var cytoscape = require('cytoscape')
 
 
+//GRAPH INITIALIZATION IS DONE HERE
+
 module.exports = 
 
 function initializeNet() {

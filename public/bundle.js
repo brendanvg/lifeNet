@@ -7,6 +7,7 @@ var gnf = gnfModule()
 var lnf = lnfModule()
 var xhr= require('node-xhr')
 
+//ALL GRAPH SELECTION IS DONE HERE 
 
 cy.style().selector('node:selected').style('background-color', 'magenta')
 
@@ -62,6 +63,8 @@ cy.on('tap', 'node', function(evt){
 },{"./genericNetFunctions.js":2,"./lifeNetFunctions.js":3,"http":79,"http-post":48,"node-xhr":41}],2:[function(require,module,exports){
 var cytoscape = require('cytoscape')
 
+
+//GRAPH INITIALIZATION IS DONE HERE
 
 module.exports = 
 
@@ -151,6 +154,8 @@ var gnfModule = require('./genericNetFunctions.js')
 var gnf = gnfModule()
 var postJson = require('post-json')
 
+
+//ALL GRAPH MANIPULATION IS DONE HERE....(cy.add())
 module.exports =
 
 function initialize(){
@@ -181,14 +186,15 @@ function initialize(){
 		cy.nodes().remove()
 	}
 
-	function addNode (name) {
+	function addNode (name,group) {
 		cy.add({
-        group:"nodes",
-        data: {
-          weight:75,
-          id:name,
-        },
-        position: {x: 200, y : 200},
+	        group:"nodes",
+	        data: {
+	          weight:75,
+	          id:name,
+	        },
+	        position: {x: 200, y : 200},
+	        classes: group,
     	})
 	}		
 	function addDirectedEdge(source,target) {
@@ -200,20 +206,20 @@ function initialize(){
 	    })
 	}
 
-	function addPositionedNode (name,x1,y1) {
-		console.log('at least it got to here')
-		console.log('x',x1)
-		console.log('y',y1)
-		cy.add({
-        group:"nodes",
-        data: {
-          weight:75,
-          id:name,
-        },
-        position: {x: x1, y : y1},
-    	})
-    	return 'done'
-	}		
+	// function addPositionedNode (name,x1,y1) {
+	// 	console.log('at least it got to here')
+	// 	console.log('x',x1)
+	// 	console.log('y',y1)
+	// 	cy.add({
+	//         group:"nodes",
+	//         data: {
+	//           weight:75,
+	//           id:name,
+	//         },
+	//         position: {x: x1, y : y1},
+ //    	})
+ //    	return 'done'
+	// }		
 
   	function createNewNode(){
   		var name= document.getElementById('nodeName').value
@@ -225,7 +231,7 @@ function initialize(){
 
 		  		postJson(url, body, function (err, result) {
 				})
-				addNode(name)
+				addNode(name,group)
 				// savePositions()
 			}
 			else alert('Name and group are both required')
@@ -256,12 +262,14 @@ function initialize(){
 	    			if (typeof y === "object") {
 		    			var key = y[i].key
 		    			var value = y[i].value
-		        		console.log('key is '+key)
-		    			console.log('value is '+value)
+		        		console.log('nodeee key is '+key)
+		    			console.log('nodeee value is '+value)
 		    			
+
 		    			var array= value.split(',')
 		  				console.log(array)
 
+		  				var netGroup = array[0]
 						var x2= Number(array[1])
 		     			var y2 = Number(array[2])
 		     			console.log('important',x2,y2)
@@ -274,7 +282,7 @@ function initialize(){
 					          id:key,
 					        },
 					        position: {x: x2, y : y2},
-					        classes:'',
+					        classes:netGroup,
 					    })
 		  			}
 	    		}
