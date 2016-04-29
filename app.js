@@ -3,8 +3,8 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./mydb28')
-var edgesDb = levelup('./edgesDb1')
+var db = levelup('./mydb34')
+var edgesDb = levelup('./edgesDb7')
 
 var corsOption = {
 	origin: 'http://localhost:5003'
@@ -28,6 +28,14 @@ app.get('/loadNodes', cors(corsOption), function(req,res,next){
     }) 
 })
 
+app.get('/loadEdges', cors(corsOption), function(req,res,next){
+	var stream = edgesDb.createReadStream()
+	collect(stream, (err,data) => {
+		res.writeHead(200, {'content-type': 'application/JSON'})
+      res.end(JSON.stringify(data))
+    }) 
+})
+
 app.post('/addNode', cors(corsOption), function(req,res,next){
 	body(req,res, function(err,params){
 		console.log('ooooooowwww',params.nodeName)
@@ -41,92 +49,81 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 	res.end()
 })
 
-
+app.post('/test', cors(corsOption), function(req,res,next){
+	body(req,res,function(err,params){
+		
+		console.log('wooooooo!')
+		edgesDb.get(params.firstNode, function(err,value){
+			console.log('firstNode', value)
+		})
+		edgesDb.get(params.secondNode, function(err,value){
+			console.log('secondNode', value)
+		})
+	})
+})
 //need to make edgesDb key: node, value: [[inEdge, inEdge],[outEdge,outEdge]]
 app.post('/addEdge', cors(corsOption), function(req,res,next){
 	body(req,res,function(err,params){
 		console.log('in Node out Node',params)
 
-		edgesDb.get(params.secondNode, function(err,value){
-			if (err) {
-				if (err.notFound){
-					var value = []
-					var updatedValue = value.push(secondNode)
-					console.log('values', updatedValue)
-					edgesDb.put(params.secondNode, updatedValue, function(err){
-						if(err) return console.log(err)
-						console.log('done adding new')
-					})
-				}
-				else {console.log(err)}
-			}
-			else {
-				console.log(value)
-				console.log('yaaa', value.outEdges)
-				console.log('entries',value.entries())
-				var newOutEdges= value.outEdges.push(params.secondNode)
-				edgesDb.put(params.firstNode, newOutEdges, function(err){
-					if(err) return console.log(err)
-					console.log('donnnne updating')
-				})
-			}
-		})
-
-
 		edgesDb.get(params.firstNode, function(err,value){
 			if (err) {
 				if (err.notFound){
-					edgesDb.put(params.firstNode, [params.secondNode], function(err){
+					var array = []
+					array.push([])
+					array.push([])
+					var inEdges= array[0]
+					var outEdges=array[1]
+					outEdges.push('!'+params.secondNode)
+				edgesDb.put(params.firstNode, array, function(err){
 						if(err) return console.log(err)
-						console.log('done adding new')
+						console.log('done adding new first', array)
 					})
 				}
 				else {console.log(err)}
 			}
 			else {
-				console.log(value)
-				console.log('yaaa', value.outEdges)
-				console.log('entries',value.entries())
-				var newOutEdges= value.outEdges.push(params.secondNode)
-				edgesDb.put(params.firstNode, newOutEdges, function(err){
-					if(err) return console.log(err)
-					console.log('donnnne updating')
+				console.log('here', value)
+				var array2= value.split('!')
+				console.log('woooo', array2)
+				array2[0]+='!'
+				array2[1]+=','+params.secondNode
+				console.log('yeaaa', array2)
+				edgesDb.put(params.firstNode, array2, function(err){
+				 	console.log('ooooo',array2)
 				})
-			}
+			}	
 		})
-		// db.get(params.firstNode, function(err,value){
-		// 	console.log('value of source node', value)
-			
-		// 	if (value.includes('!')){
-		// 		console.log('value of source node before split', value)
-		// 		var valArray = value.split('!')
-		// 		console.log('value of source after split', valArray)
-		// 		var oldOut= valArray[2]
-		// 		var newOut = '!'+valArray[2] + ','+ params.secondNode
-		// 		valArray[2] = newOut
-
-		// 		var newValue = valArray.toString()
 
 
-		// 		db.put(params.firstNode, newValue, function(err){
-		// 			if (err) return console.log(err)
-		// 			console.log('after putting new value of out-edge', newValue)
-		// 		})
+		edgesDb.get(params.secondNode, function(err,value){
+			if (err) {
+				if (err.notFound){
+					var array = []
+					array.push([])
+					array.push([])
+					var inEdges= array[0]
+					var outEdges=array[1]
+					inEdges.push('!'+params.firstNode)
+				edgesDb.put(params.secondNode, array, function(err){
+						if(err) return console.log(err)
+						console.log('done adding new first', array)
+					})
+				}
+				else {console.log(err)}
+			}
+			else {
+				console.log('here', value)
+				var array2= value.split('!')
+				console.log('woooo', array2)
+				array2[0]+= ','+ params.firstNode+'!'
+				console.log('yeaaa', array2)
+				edgesDb.put(params.secondNode, array2, function(err){
+				 	console.log('ooooo',array2)
+				})
+			}	
+		})
 
-		// 		console.log('checking new out', newOut)
-
-		// 	}
-
-		// 	else {
-		// 		var edgeString= '!'+''+'!'+params.secondNode+'!'
-		// 		console.log('woo', value)
-		// 		var newValue= value += edgeString
-		// 		console.log('uhhhhh!!!', newValue)
-		// 		db.put(params.firstNode, newValue, function(err){
-		// 			if (err) return console.log(err)
-		// 		})
-		// 	}
-		// })
 	})
 	res.end()
 })

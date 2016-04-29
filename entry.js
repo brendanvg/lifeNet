@@ -13,12 +13,18 @@ cy.style().selector('node:selected').style('background-color', 'magenta')
 var loadNode2=document.getElementById("loadNode2")
 loadNode2.addEventListener("click", lnf.loadNodes)
 
+
+var loadEdges2=document.getElementById("loadEdges2")
+loadEdges2.addEventListener("click", lnf.loadEdges)
+
 var savePositions=document.getElementById('savePositions')
 savePositions.addEventListener('click', lnf.savePositions)
 
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)
 
+var test = document.getElementById('test')
+test.addEventListener('click',lnf.test)
 
 
 //nClicked=false, first click, true,second click

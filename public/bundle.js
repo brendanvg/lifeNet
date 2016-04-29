@@ -14,12 +14,18 @@ cy.style().selector('node:selected').style('background-color', 'magenta')
 var loadNode2=document.getElementById("loadNode2")
 loadNode2.addEventListener("click", lnf.loadNodes)
 
+
+var loadEdges2=document.getElementById("loadEdges2")
+loadEdges2.addEventListener("click", lnf.loadEdges)
+
 var savePositions=document.getElementById('savePositions')
 savePositions.addEventListener('click', lnf.savePositions)
 
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)
 
+var test = document.getElementById('test')
+test.addEventListener('click',lnf.test)
 
 
 //nClicked=false, first click, true,second click
@@ -153,10 +159,21 @@ function initialize(){
 
 	return {
 		loadNodes:loadNodes,
+		loadEdges: loadEdges,
 		createNewNode: createNewNode,
 		savePositions:savePositions,
 		addNewEdge: addNewEdge,
+		test: test,
   	}
+
+	function test () {
+		var url = 'http://localhost:5003/test'
+		var body = {firstNode: firstNodeId, secondNode:secondNodeId} 
+
+		postJson(url,body, function(err,result){
+		})
+
+	}
 
 	function addNode (name) {
 		cy.add({
@@ -168,6 +185,14 @@ function initialize(){
         position: {x: 200, y : 200},
     	})
 	}		
+	function addDirectedEdge(source,target) {
+	     cy.add({
+	      data: {
+	        source: source,
+	        target: target
+	      }
+	    })
+	}
 
 	function addPositionedNode (name,x1,y1) {
 		console.log('at least it got to here')
@@ -206,6 +231,7 @@ function initialize(){
 
 		postJson(url,body, function(err,result){
 		})
+			addDirectedEdge(firstNodeId, secondNodeId)
 
 	}
 
@@ -247,6 +273,84 @@ function initialize(){
 					        position: {x: x2, y : y2},
 					    })
 		  			}
+	    		}
+	    	})
+	    )
+	}
+
+	function loadEdges(){
+		console.log('Fuuuu')
+	    hyperquest('http://localhost:5003/loadEdges')
+	    .pipe(
+	    	catS(function(data){
+	    		var x = data.toString()
+	    		var y = JSON.parse(x)
+	    		console.log('thisisy', y)
+	    		console.log('type', typeof y)
+	    		console.log('length of y', y.length)
+	    	// 	for (i=0; i<y.length; i++){
+	    	// 		console.log('keyyy', y[i].key)
+	    	// 		var key = y[i].key
+	    	// 		var value = y[i].value
+	     //    		console.log('key is '+key)
+	    	// 		console.log('value is '+value)
+	    	// 		var array1= value.split('!')
+	    	// 		var inEdges = array1[0]
+	    	// 		var outEdges= array1[1]
+
+	    	// 		console.log('woot',array1)
+	    	// 		var inEdges2= inEdges.split(',')
+	    	// 		var outEdges2= outEdges.split(',')
+	    	// 		console.log('donedone',inEdges2)
+	    	// 		console.log('orrr', outEdges2)
+	    	//  		for (j=0; j<inEdges2.length; j++){
+						// if (inEdges2[j] != ''){
+		    // 			console.log('inners',inEdges2[j])
+		    // 			}
+		    // 		}
+	    	// 	}
+
+
+	    		for (i = 0; i<y.length; i++){
+	    			// if (typeof y === "object") {
+		    			var key = y[i].key
+		    			var value = y[i].value
+		        		console.log('key is '+key)
+		    			console.log('value is '+value)
+		    			var array1= value.split('!')
+		    			var inEdges = array1[0]
+		    			var outEdges= array1[1]
+
+		    			console.log('woot',array1)
+		    			var inEdges2= inEdges.split(',')
+		    			var outEdges2= outEdges.split(',')
+		    			console.log('donedone',inEdges2)
+		    			console.log('orrr', outEdges2)
+
+		    			// var array2 = array1.split(',')
+		    			for (j=0; j<inEdges2.length; j++){
+		    				if (inEdges2[j] != ''){
+		    					console.log('inners',inEdges2[j])
+		    					cy.add({
+							      data: {
+							        source: inEdges2[j],
+							        target: key
+							      }
+							    })
+		    				}
+		    			}
+		    			for (k=0; k<outEdges2.length; k++){
+		    				if (outEdges2[k] != ''){
+		    					console.log('outers', outEdges2[k])
+		    					cy.add({
+		    						data: {
+		    							source: key,
+		    							target: outEdges2[k]
+		    						}
+		    					})
+		    				}
+		    			}
+		    		// }
 	    		}
 	    	})
 	    )
