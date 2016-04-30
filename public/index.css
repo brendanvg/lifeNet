@@ -1,11 +1,15 @@
 #cy {
-	width:90%;
+	width:70%;
 	height:80%;
 	display:block;
 	border: 1px solid black;
 	margin-left: 5%;
 
 };
+
+#groupLinkContent{
+	width:20%;
+}
 
 #container {
 	margin:auto;

@@ -3,8 +3,9 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./mydb35')
-var edgesDb = levelup('./edgesDb8')
+var db = levelup('./mydb39')
+var edgesDb = levelup('./edgesDb11')
+var groupsDb = levelup('./groupsDb4')
 
 var corsOption = {
 	origin: 'http://localhost:5003'
@@ -19,6 +20,40 @@ app.get('/', function(req,res){
 
 //value.split('!')  valueArray[1] = in-edge   valueArray[2]=out-edge
 // db=key=nodeId, value= 'group, x, y, !in-edge,in-edge,in-edge! out-edge,out-edge!'
+
+app.get('/loadGroups', cors(corsOption), function (req,res,next){
+	var stream = groupsDb.createReadStream()
+	collect(stream, (err,data) => {
+		res.writeHead(200, {'content-type': 'application/JSON'})
+      res.end(JSON.stringify(data))
+    }) 
+})
+
+app.post('/addGroup', cors(corsOption), function (req,res,next){
+	body(req,res,function(err,params){
+		var group= params.nodeGroup
+		var node = params.nodeName
+
+		groupsDb.get(group, function(err,value){
+			if (err){
+				if (err.notFound){
+					groupsDb.put(group, node, function(err){
+						if (err) console.log(err)
+					})
+				}
+				else console.log('uhoh',err)
+			}
+			else {
+				value+=','+node
+					groupsDb.put(group,value, function(err){
+						if (err) console.log(err)
+					})
+			}
+		})
+	})
+	res.end()
+})
+
 
 app.get('/loadNodes', cors(corsOption), function(req,res,next){
 	var stream = db.createReadStream()

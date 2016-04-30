@@ -60,6 +60,8 @@ cy.on('tap', 'node', function(evt){
 
   }
 })
+
+
 },{"./genericNetFunctions.js":2,"./lifeNetFunctions.js":3,"http":79,"http-post":48,"node-xhr":41}],2:[function(require,module,exports){
 var cytoscape = require('cytoscape')
 
@@ -172,6 +174,7 @@ function initialize(){
 		addNewEdge: addNewEdge,
 		test: test,
 		clear: clear,
+		loadGroups: loadGroups,
   	}
 
 	function test () {
@@ -225,6 +228,7 @@ function initialize(){
   		var name= document.getElementById('nodeName').value
   		var group = document.getElementById('nodeGroup').value
   		var url = 'http://localhost:5003/addNode'
+  		var url2 = 'http://localhost:5003/addGroup'
  
 			if (name && group){
 				var body = {nodeName: name, nodeGroup: group}
@@ -233,8 +237,35 @@ function initialize(){
 				})
 				addNode(name,group)
 				// savePositions()
+
+				postJson(url2, body, loadGroups)
+
+
+				
 			}
 			else alert('Name and group are both required')
+	}
+
+	function loadGroups (){
+
+		var listOfGroupLinks = ""
+		hyperquest('http://localhost:5003/loadGroups')
+		.pipe(
+			catS(function(data){
+				var x = data.toString()
+				var y = JSON.parse(x)
+				console.log('this is y from groups', y)
+
+				for (i = 0; i<y.length; i++){
+					console.log('yep',y[i])
+					var groupLink = '<tr><a href="/loadSpecificGroup/"'+y[i].key+'"><td>'+y[i].key+'</td></a><br>'
+				
+					listOfGroupLinks += groupLink
+				}
+				var parent= document.getElementById('groupLinkContent')
+				parent.innerHTML=listOfGroupLinks
+			})
+		)
 	}
 
 	function addNewEdge(firstNodeId, secondNodeId) {
