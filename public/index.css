@@ -1,10 +1,10 @@
 #cy {
-	width:80%;
-	height:80%;
+/*	width:80%;
+*/	height:80%;
 	display:block;
 	border: 1px solid black;
-	margin-left: 5%;
-
+/*	margin-left: 5%;
+*/
 };
 
 /*#groupLinkContent{
@@ -26,10 +26,10 @@ h4 {
 	text-align: center;
 }
 #addNodeBtn {
-	margin: auto;
-	text-align: center;
-	margin-left: 40%;
-}
+/*	margin: auto;
+*//*	text-align: center;
+*//*	margin-left: 40%;
+*/}
 
 .answerBtnsSelected{
 	background-color: red;

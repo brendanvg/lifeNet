@@ -3,9 +3,9 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./mydb39')
-var edgesDb = levelup('./edgesDb11')
-var groupsDb = levelup('./groupsDb4')
+var db = levelup('./myFlintDb')
+var edgesDb = levelup('./edgesFlintDb')
+var groupsDb = levelup('./groupsFlintDb')
 
 //db = {key: node, value: group,x,y }
 //edgesDb = 
