@@ -7,6 +7,11 @@ var db = levelup('./mydb39')
 var edgesDb = levelup('./edgesDb11')
 var groupsDb = levelup('./groupsDb4')
 
+//db = {key: node, value: group,x,y }
+//edgesDb = 
+//groupsDb= {key:group, value: names of nodes in the group}
+
+
 var corsOption = {
 	origin: 'http://localhost:5003'
 }
@@ -46,7 +51,39 @@ app.get('/test1', function(req,res){
 // db=key=nodeId, value= 'group, x, y, !in-edge,in-edge,in-edge! out-edge,out-edge!'
 
 app.get('/graphSpecificGroup/:key', function(req,res){
-	console.log('woooooo!VUUU',req.params.key)
+	var group = req.params.key
+	console.log('heres my comparison', group)
+
+
+	var finalDataArray= []
+
+	db.createReadStream()
+	.on('data', function(data){
+		var array = data.value.split(',')
+		if (array[0] === group) {
+			console.log('woootyyyy',array[0], array[1], array[2])
+			console.log('ohhhyea', data, typeof data)
+		finalDataArray.push(data) 
+		console.log('updated array', finalDataArray)
+		}
+	})
+
+	.on('error', function (err) {
+    	console.log('Oh my!', err)
+  	})
+  	.on('close', function () {
+    	console.log('Stream closed')
+  	})
+  	.on('end', function () {
+    	console.log('Stream ended')
+		// res.writeHead(200, {'content-type': 'application/JSON'})
+		res.end(JSON.stringify(finalDataArray))
+
+  	})
+	// if (group = db.get)
+	// var stream = 
+	// console.log('woooooo!VUUU',req.params.key)
+	// res.end()
 })
 
 app.get('/loadGroups', cors(corsOption), function (req,res,next){
