@@ -17,8 +17,8 @@ var xhr= require('node-xhr')
 cy.style().selector('node:selected').style('background-color', 'magenta')
 
 //Event Listeners
-var loadNode2=document.getElementById("loadNode2")
-loadNode2.addEventListener("click", lnf.loadNodes)
+var graphAllNodes2=document.getElementById("graphAllNodes2")
+graphAllNodes2.addEventListener("click", lnf.graphAllNodes)
 
 var loadGroups=document.getElementById("loadGroups")
 loadGroups.addEventListener("click", lnf.loadGroups)
@@ -195,7 +195,7 @@ function initialize(){
 	var secondNode = {}
 
 	return {
-		loadNodes:loadNodes,
+		graphAllNodes:graphAllNodes,
 		loadEdges: loadEdges,
 		createNewNode: createNewNode,
 		savePositions:savePositions,
@@ -316,10 +316,10 @@ function initialize(){
 		var stream2 = hyperquest('http://localhost:5003/load')
 	}
 
-	function loadNodes(){
+	function graphAllNodes(){
 	  	console.log('woooo')
-	    var stream1 = hyperquest('http://localhost:5003/loadNodes')
-	    processData(stream1)
+	    var stream1 = hyperquest('http://localhost:5003/graphAllNodes')
+	    loadNodes(stream1)
 	    // .pipe(processData(stream))
 	    	// catS(function(data){
 	    	// 	var x = data.toString()
@@ -359,7 +359,7 @@ function initialize(){
 	    // )
 	}
 
-	function processData(stream1){
+	function loadNodes(stream1){
 		stream1.pipe(catS(function(data){
 	    		var x = data.toString()
 	    		var y = JSON.parse(x)

@@ -16,7 +16,7 @@ function initialize(){
 	var secondNode = {}
 
 	return {
-		loadNodes:loadNodes,
+		graphAllNodes:graphAllNodes,
 		loadEdges: loadEdges,
 		createNewNode: createNewNode,
 		savePositions:savePositions,
@@ -137,10 +137,10 @@ function initialize(){
 		var stream2 = hyperquest('http://localhost:5003/load')
 	}
 
-	function loadNodes(){
+	function graphAllNodes(){
 	  	console.log('woooo')
-	    var stream1 = hyperquest('http://localhost:5003/loadNodes')
-	    processData(stream1)
+	    var stream1 = hyperquest('http://localhost:5003/graphAllNodes')
+	    loadNodes(stream1)
 	    // .pipe(processData(stream))
 	    	// catS(function(data){
 	    	// 	var x = data.toString()
@@ -180,7 +180,7 @@ function initialize(){
 	    // )
 	}
 
-	function processData(stream1){
+	function loadNodes(stream1){
 		stream1.pipe(catS(function(data){
 	    		var x = data.toString()
 	    		var y = JSON.parse(x)

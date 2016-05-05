@@ -16,8 +16,8 @@ var xhr= require('node-xhr')
 cy.style().selector('node:selected').style('background-color', 'magenta')
 
 //Event Listeners
-var loadNode2=document.getElementById("loadNode2")
-loadNode2.addEventListener("click", lnf.loadNodes)
+var graphAllNodes2=document.getElementById("graphAllNodes2")
+graphAllNodes2.addEventListener("click", lnf.graphAllNodes)
 
 var loadGroups=document.getElementById("loadGroups")
 loadGroups.addEventListener("click", lnf.loadGroups)

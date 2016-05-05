@@ -83,7 +83,7 @@ app.post('/addGroup', cors(corsOption), function (req,res,next){
 })
 
 
-app.get('/loadNodes', cors(corsOption), function(req,res,next){
+app.get('/graphAllNodes', cors(corsOption), function(req,res,next){
 	var stream = db.createReadStream()
 	collect(stream, (err,data) => {
 		res.writeHead(200, {'content-type': 'application/JSON'})
