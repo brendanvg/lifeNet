@@ -1,3 +1,11 @@
+
+loadEdges only graphing the first edge I added while clicking
+
+visualize groups: by color.....with color key being updated
+
+
+what to do when someone is in more than one group???
+
 set max zoom out
  
 
