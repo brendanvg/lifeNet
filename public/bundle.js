@@ -32,8 +32,7 @@ savePositions.addEventListener('click', lnf.savePositions)
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)
 
-var test = document.getElementById('test')
-test.addEventListener('click',lnf.test)
+
 
 var clear = document.getElementById('clear')
 clear.addEventListener('click', lnf.clear)
@@ -41,47 +40,7 @@ clear.addEventListener('click', lnf.clear)
 $('.groups').click(function(){
   console.log('he')
 })
-// var groups1 = document.getElementsByClassName('groups')
-// groups1.addEventListener('click', lnf.graphSpecificGroup)
-// for (var i = 0; i < groups1.length; i++){
-//   groups1[i].addEventListener('click',console.log('doneee!!!',false))
-// }
 
-// console.log('yaaasss',groups1)
-// groups1.addEventListener('click',lnf.graphSpecificGroup)
-
-// Array.prototype.forEach.call(groups, function(el) {
-//     // Do stuff here
-//     console.log(el.tagName);
-//     console.log('wweeee', el)
-// });
-
-
-// for each iterates over a list and runs a function for each element
-var forEach = Array.prototype.forEach,
-    // query selector all runs a CSS selector and returns a list of elements
-    // matching the selector
-    $$ = document.querySelectorAll.bind(document);
-
-// for each element in the list returned by the CSS selector    
-forEach.call($$('.groups'), function(v) {
-  // add an event listener to the click event
-  v.addEventListener('click', function(e) {
-    // and run some event handling code.    
-  }, false);
-});
-
-
-
-// function reply_id(clicked_id){
-//     alert(clicked_id)
-//   }
-
-// groups.forEach.call(groups, function(el){
-//   var id = el.id()
-//   console.log('yep', id)
-// })
-// groups.addEventListener('click', lnf.graphSpecificGroup)
 
 //nClicked=false, first click, true,second click
 var nClicked = false;
