@@ -25,6 +25,7 @@ function initialize(){
 		clear: clear,
 		loadGroups: loadGroups,
 		graphSpecificGroup: graphSpecificGroup,
+		test2:test2,
   	}
 
 	function test () {
@@ -96,10 +97,14 @@ function initialize(){
 			else alert('Name and group are both required')
 	}
 
-	function loadGroups (){
+function test5(){
+	console.log('ok now', this.id)
+}
+
+	function loadGroups (callback3){
 
 		var listOfGroupLinks = ""
-		hyperquest('http://localhost:5003/loadGroups')
+		var stream3 = hyperquest('http://localhost:5003/loadGroups')
 		.pipe(
 			catS(function(data){
 				var x = data.toString()
@@ -108,7 +113,7 @@ function initialize(){
 
 				for (i = 0; i<y.length; i++){
 					console.log('yep',y[i])
-					var groupLink = '<tr><button onClick="reply_id(this.id)" class = "groups" id="'+y[i].key+'">'+y[i].key+'</button><br>'
+					var groupLink = '<tr><button class = "groups" id="'+y[i].key+'">'+y[i].key+'</button><br>'
 				
 					listOfGroupLinks += groupLink
 				}
@@ -116,8 +121,66 @@ function initialize(){
 				parent.innerHTML=listOfGroupLinks
 			})
 		)
-		var groups1 = document.getElementsByClassName('groups')
-		// groups1.addEventListener('click', )
+		stream3.on('finish', function(){
+			console.log('its done')
+			var groups1 = document.getElementsByClassName('groups')
+			
+			// for (var i = 0; i < groups1.length; i++){
+ 		// 		console.log('woppy!', groups1[i])
+ 		// 		groups1[i].addEventListener('click',console.log('doneee!!!',false))
+			// }
+
+			for(var i = 0; i < groups1.length; i++)
+ 			{
+   				console.log(groups1.item(i));
+   				groups1.item(i).addEventListener('click',test5)
+			 }
+		})
+
+		// var groups1 = document.getElementsByClassName('groups')
+		// var groups3 = Array.prototype.slice.call(groups1)
+		// console.log('w!ip', groups3)
+
+  //  console.log('yyyp',groups1.item());
+
+
+		// Array.prototype.forEach.call(groups1, function(element){
+  //   		element.style.visibility = "hidden";
+  //   		console.log('ahah!!!')
+  //   		console.log('oooo', element.id)
+		// });	
+		// // ,function(){
+		// console.log('wwww!yepp', groups1)
+		// for (var i = 0; i < groups1.length; i++){
+ 	// 		console.log('woppy!')
+ 	// 		groups1[i].addEventListener('click',console.log('doneee!!!',false))
+		// }
+		// console.log('hi', groups1[0])
+		// console.log('no', groups1[0].id)
+		// })
+		// console.log('wwww!yepp', groups1)
+		// console.log('uhhh!', groups1[0])
+		// groups1.addEventListener('click',console.log('wow'))
+
+
+// for(var i = 0; i < groups1.length; i++)
+// {
+//    console.log(groups1.item(i));
+// }
+		// console.log('hi', groups1[0])
+		// console.log('no', groups1[0].id)
+
+		// for (var i = 0; i < groups1.length; i++) {
+		// 	groups1[i].addEventListener('click', console.log('fuuuuu', this.id))
+		// 	// console.log('yeeep',groups1[i].id)
+		// };
+		// groups1.addEventListener('click', console.log('wwwww!', this.id))
+
+		// for (var i = 0; i <= groups1.length; i++) {
+		// 	groups1[i].addEventListener('click', console.log('ha!!!',groups1[i].id))
+		// };
+		// console.log('www1!', groups1)
+		// groups1.addEventListener('click', graphSpecificGroup)
 	}
 
 	
@@ -133,8 +196,14 @@ function initialize(){
 	}
 
 
-	function graphSpecificGroup(){ 
-		var stream2 = hyperquest('http://localhost:5003/load')
+	function graphSpecificGroup(event){ 
+		// var stream2 = hyperquest('http://localhost:5003/graphSpecificGroup/'+)
+		console.log('yyyy', event.target.id)
+	}
+
+	
+	function test2 (){
+		console.log('winner')
 	}
 
 	function graphAllNodes(){

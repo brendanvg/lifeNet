@@ -45,7 +45,7 @@ app.get('/test1', function(req,res){
 //value.split('!')  valueArray[1] = in-edge   valueArray[2]=out-edge
 // db=key=nodeId, value= 'group, x, y, !in-edge,in-edge,in-edge! out-edge,out-edge!'
 
-app.get('/loadSpecificGroup/:key', function(req,res){
+app.get('/graphSpecificGroup/:key', function(req,res){
 	console.log('woooooo!VUUU',req.params.key)
 })
 
