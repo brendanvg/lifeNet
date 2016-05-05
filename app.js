@@ -76,14 +76,9 @@ app.get('/graphSpecificGroup/:key', function(req,res){
   	})
   	.on('end', function () {
     	console.log('Stream ended')
-		// res.writeHead(200, {'content-type': 'application/JSON'})
 		res.end(JSON.stringify(finalDataArray))
 
   	})
-	// if (group = db.get)
-	// var stream = 
-	// console.log('woooooo!VUUU',req.params.key)
-	// res.end()
 })
 
 app.get('/loadGroups', cors(corsOption), function (req,res,next){
