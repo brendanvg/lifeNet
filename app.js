@@ -13,13 +13,41 @@ var corsOption = {
 var collect = require('collect-stream')
 
 app.use(express.static('public'))
-app.get('/', function(req,res){
-	res.sendfile('index.html')
+
+// var cb0= function(req,res,next){
+// 	console.log('dammmm')
+// 	next()
+// }
+
+// var cb1= function (req,res,next){
+	
+// 	res.sendfile('index.html')
+// 	// res.redirect('/loadNodes')
+// 	next()
+// }
+// var cb2= function (req,res,next){
+// 	// res.redirect('/loadEdges')
+// 	next()
+// }
+// var cb3= function (req,res,next){
+// 	res.redirect('/test1')
+// 	next()
+// }
+
+// app.get('/', function(req,res){
+// 	console.log('helllllllo!')
+// 	res.sendfile('public/index.html')
+// })
+
+app.get('/test1', function(req,res){
+	console.log('ohhhhhh!! YEA!')
 })
-
-
 //value.split('!')  valueArray[1] = in-edge   valueArray[2]=out-edge
 // db=key=nodeId, value= 'group, x, y, !in-edge,in-edge,in-edge! out-edge,out-edge!'
+
+app.get('/loadSpecificGroup/:key', function(req,res){
+	console.log('woooooo!VUUU',req.params.key)
+})
 
 app.get('/loadGroups', cors(corsOption), function (req,res,next){
 	var stream = groupsDb.createReadStream()

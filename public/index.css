@@ -1,5 +1,5 @@
 #cy {
-	width:70%;
+	width:80%;
 	height:80%;
 	display:block;
 	border: 1px solid black;
@@ -7,9 +7,9 @@
 
 };
 
-#groupLinkContent{
+/*#groupLinkContent{
 	width:20%;
-}
+}*/
 
 #container {
 	margin:auto;

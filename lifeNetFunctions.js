@@ -24,6 +24,7 @@ function initialize(){
 		test: test,
 		clear: clear,
 		loadGroups: loadGroups,
+		graphSpecificGroup: graphSpecificGroup,
   	}
 
 	function test () {
@@ -107,7 +108,7 @@ function initialize(){
 
 				for (i = 0; i<y.length; i++){
 					console.log('yep',y[i])
-					var groupLink = '<tr><a href="/loadSpecificGroup/"'+y[i].key+'"><td>'+y[i].key+'</td></a><br>'
+					var groupLink = '<tr><button onClick="reply_id(this.id)" class = "groups" id="'+y[i].key+'">'+y[i].key+'</button><br>'
 				
 					listOfGroupLinks += groupLink
 				}
@@ -115,7 +116,11 @@ function initialize(){
 				parent.innerHTML=listOfGroupLinks
 			})
 		)
+		var groups1 = document.getElementsByClassName('groups')
+		// groups1.addEventListener('click', )
 	}
+
+	
 
 	function addNewEdge(firstNodeId, secondNodeId) {
 		var url = 'http://localhost:5003/addEdge'
@@ -127,12 +132,56 @@ function initialize(){
 
 	}
 
-		
+
+	function graphSpecificGroup(){ 
+		var stream2 = hyperquest('http://localhost:5003/load')
+	}
+
 	function loadNodes(){
 	  	console.log('woooo')
-	    hyperquest('http://localhost:5003/loadNodes')
-	    .pipe(
-	    	catS(function(data){
+	    var stream1 = hyperquest('http://localhost:5003/loadNodes')
+	    processData(stream1)
+	    // .pipe(processData(stream))
+	    	// catS(function(data){
+	    	// 	var x = data.toString()
+	    	// 	var y = JSON.parse(x)
+	    	// 	console.log('thisisy', y)
+	    	// 	console.log('type', typeof y)
+
+	    	// 	for (i = 0; i<y.length; i++){
+	    	// 		if (typeof y === "object") {
+		    // 			var key = y[i].key
+		    // 			var value = y[i].value
+		    //     		console.log('nodeee key is '+key)
+		    // 			console.log('nodeee value is '+value)
+		    			
+
+		    // 			var array= value.split(',')
+		  		// 		console.log(array)
+
+		  		// 		var netGroup = array[0]
+						// var x2= Number(array[1])
+		    //  			var y2 = Number(array[2])
+		    //  			console.log('important',x2,y2)
+
+
+		  		// 		cy.add({
+					 //        group:"nodes",
+					 //        data: {
+					 //          weight:75,
+					 //          id:key,
+					 //        },
+					 //        position: {x: x2, y : y2},
+					 //        classes:netGroup,
+					 //    })
+		  		// 	}
+	    	// 	}
+	    	// })
+	    // )
+	}
+
+	function processData(stream1){
+		stream1.pipe(catS(function(data){
 	    		var x = data.toString()
 	    		var y = JSON.parse(x)
 	    		console.log('thisisy', y)
@@ -167,7 +216,8 @@ function initialize(){
 		  			}
 	    		}
 	    	})
-	    )
+		)
+
 	}
 
 	function loadEdges(){
