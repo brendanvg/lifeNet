@@ -1,4 +1,6 @@
 
+need to work on naming different types of edges and searching/highlighint all edges of that type and also color coding different groups
+
 loadEdges only graphing the first edge I added while clicking
 
 visualize groups: by color.....with color key being updated
