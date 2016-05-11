@@ -137,8 +137,9 @@ function test5(){
 	function addNewEdge(firstNodeId, secondNodeId) {
 		var url = 'http://localhost:5003/addEdge'
 		var body = {firstNode: firstNodeId, secondNode:secondNodeId} 
-
+		console.log('hi1')
 		postJson(url,body, function(err,result){
+			console.log('hi2')
 		})
 			addDirectedEdge(firstNodeId, secondNodeId)
 
