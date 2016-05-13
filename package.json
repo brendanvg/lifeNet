@@ -14,7 +14,10 @@
     "collect-stream": "^1.1.1",
     "concat-stream": "^1.5.1",
     "cors": "^2.7.1",
+    "fs": "0.0.2",
     "hyperquest": "^1.3.0",
+    "hyperscript": "^1.4.7",
+    "hyperstream": "^1.2.2",
     "levelup": "^1.3.1",
     "node-xhr": "^1.0.5",
     "post-json": "^0.3.1"

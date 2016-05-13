@@ -49,17 +49,25 @@ var secondNode = {}
 
 cy.on('tap', 'node', function(evt){
   if (nClicked) {
+
+
     nClicked = false
 	console.log('byee')
     var secondNode = evt.cyTarget
     var secondNodeId = secondNode.id()
     var firstNodeId= firstNode.id()
 
-    console.log('nodes2',firstNodeId, secondNodeId)
-  
-	lnf.addNewEdge(firstNodeId, secondNodeId)  
-    // gnf.addDirectedEdge(firstNodeId, secondNodeId)
+    if (secondNodeId = firstNodeId){
+      console.log('clicked myself')
+      window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 100, width=100, return false') 
+    }
 
+    else {
+      console.log('nodes2',firstNodeId, secondNodeId)
+  
+	   lnf.addNewEdge(firstNodeId, secondNodeId)  
+    // gnf.addDirectedEdge(firstNodeId, secondNodeId)
+    }
   }
 
   else 

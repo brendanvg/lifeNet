@@ -6,7 +6,9 @@ var levelup= require('levelup')
 var db = levelup('./myFlintDb')
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
-
+var h = require('hyperscript')
+var hyperstream = require('hyperstream')
+var fs = require('fs')
 //db = {key: node, value: group,x,y }
 //edgesDb = 
 //groupsDb= {key:group, value: names of nodes in the group}
@@ -43,6 +45,36 @@ app.use(express.static('public'))
 // 	console.log('helllllllo!')
 // 	res.sendfile('public/index.html')
 // })
+
+
+// app.get('/nodeInfo/:key', function(req,res, next){
+// 	var node = req.params.key
+
+// 	// res.sendfile('public/nodeInfo.html')
+	
+// 	// res.redirect('http://localhost:5003/nodeInfoFinal/'+node)
+
+
+// })
+
+app.get('/nodeInfo/:key', function(req,res, next){
+		var node = req.params.key
+		console.log('hiii', node)
+		db.get(node, function(err,value){
+			if (err) console.log(err)
+			else {
+				var html = h('div', [
+					h('h1', value)	
+				])
+				fs.createReadStream('public/nodeInfo.html')
+					.pipe(hyperstream({
+					'#nodeInfoContent':html.outerHTML
+					}))
+					.pipe(res)
+			}
+		})
+})
+
 
 app.get('/test1', function(req,res){
 	console.log('ohhhhhh!! YEA!')

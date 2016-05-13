@@ -1,4 +1,6 @@
 
+and add searchable attributes to each node...i.e. this node "items willing to share = bicycle, food, room, car and then when someone asks you for something you can search your network for a node that matches that
+
 need to work on naming different types of edges and searching/highlighint all edges of that type and also color coding different groups
 
 loadEdges only graphing the first edge I added while clicking
