@@ -46,6 +46,19 @@ $('.groups').click(function(){
 var nClicked = false;
 var firstNode = {}
 var secondNode = {}
+var edgeClicked=false;
+
+
+cy.on('tap','edge', function(evt){
+  if (edgeClicked) {
+    edgeClicked=false
+    window.open('http://localhost:5003/edgeInfo/'+evt.cyTarget.id(), 'Edge Info', 'height= 470, width=470, return false') 
+
+  }
+  else {
+    edgeClicked=true
+  }
+})
 
 cy.on('tap', 'node', function(evt){
   if (nClicked) {
@@ -59,7 +72,7 @@ cy.on('tap', 'node', function(evt){
 
     if (secondNodeId = firstNodeId){
       console.log('clicked myself')
-      window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 100, width=100, return false') 
+      window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
     }
 
     else {
@@ -134,6 +147,8 @@ function initializeNet() {
   	// },
   	zoomingEnabled:true,
   	userZoomingEnabled:true,
+    boxSelectionEnabled: true,
+
   })
 
   return {

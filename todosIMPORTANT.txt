@@ -1,3 +1,5 @@
+Focus on making it a tool to introduce the broad public (neighborhood clumps) through canvasing, getting geographic areas connected into sharing networks and letting the user expand to other regions..... NEED To implement user accounts and communication between users. 
+
 
 and add searchable attributes to each node...i.e. this node "items willing to share = bicycle, food, room, car and then when someone asks you for something you can search your network for a node that matches that
 

@@ -50,6 +50,8 @@ function initializeNet() {
   	// },
   	zoomingEnabled:true,
   	userZoomingEnabled:true,
+    boxSelectionEnabled: true,
+
   })
 
   return {

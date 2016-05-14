@@ -9,9 +9,16 @@ var groupsDb = levelup('./groupsFlintDb')
 var h = require('hyperscript')
 var hyperstream = require('hyperstream')
 var fs = require('fs')
+
+// var dataRender=require('data-render')
+
 //db = {key: node, value: group,x,y }
 //edgesDb = 
 //groupsDb= {key:group, value: names of nodes in the group}
+
+app.set('views', __dirname + '/views')
+app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs-locals'));
 
 
 var corsOption = {
@@ -21,41 +28,22 @@ var collect = require('collect-stream')
 
 app.use(express.static('public'))
 
-// var cb0= function(req,res,next){
-// 	console.log('dammmm')
-// 	next()
-// }
-
-// var cb1= function (req,res,next){
-	
-// 	res.sendfile('index.html')
-// 	// res.redirect('/loadNodes')
-// 	next()
-// }
-// var cb2= function (req,res,next){
-// 	// res.redirect('/loadEdges')
-// 	next()
-// }
-// var cb3= function (req,res,next){
-// 	res.redirect('/test1')
-// 	next()
-// }
-
-// app.get('/', function(req,res){
-// 	console.log('helllllllo!')
-// 	res.sendfile('public/index.html')
-// })
 
 
 // app.get('/nodeInfo/:key', function(req,res, next){
 // 	var node = req.params.key
+// 		db.get(node, function(err,value){
+// 			if (err) console.log(err)
+// 			else {
 
-// 	// res.sendfile('public/nodeInfo.html')
+// 			}
+	// res.sendfile('public/nodeInfo.html')
 	
-// 	// res.redirect('http://localhost:5003/nodeInfoFinal/'+node)
+	// res.redirect('http://localhost:5003/nodeInfoFinal/'+node)
 
 
 // })
+
 
 app.get('/nodeInfo/:key', function(req,res, next){
 		var node = req.params.key
@@ -63,14 +51,21 @@ app.get('/nodeInfo/:key', function(req,res, next){
 		db.get(node, function(err,value){
 			if (err) console.log(err)
 			else {
-				var html = h('div', [
-					h('h1', value)	
-				])
-				fs.createReadStream('public/nodeInfo.html')
-					.pipe(hyperstream({
-					'#nodeInfoContent':html.outerHTML
-					}))
-					.pipe(res)
+				var array= value.split(',')
+				var group = array[0]
+				
+
+				res.render('nodeInfoForm', {pageContent: group})
+
+
+				// var html = h('div', [
+				// 	h('h1', value)	
+				// ])
+				// fs.createReadStream('public/nodeInfo.html')
+				// 	.pipe(hyperstream({
+				// 	'#nodeInfoContent':html.outerHTML
+				// 	}))
+				// 	.pipe(res)
 			}
 		})
 })
