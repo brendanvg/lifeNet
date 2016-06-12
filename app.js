@@ -9,6 +9,20 @@ var groupsDb = levelup('./groupsFlintDb')
 var h = require('hyperscript')
 var hyperstream = require('hyperstream')
 var fs = require('fs')
+var server = app.listen(5003, function(){
+	console.log('listening on port 5003')
+})
+
+var io = require('socket.io')(server)
+
+
+//socket is the object that is assigned to a new client (their connection)
+io.on('connection',function(socket){
+	//emits what was received from socket to all on connection
+	socket.on('news', function (data){
+		io.emit('news', data)
+	})
+})
 
 // var dataRender=require('data-render')
 
@@ -44,6 +58,9 @@ app.use(express.static('public'))
 
 // })
 
+app.get('/enterChat', function(req,res,next){
+	res.sendFile('http://localhost:5003/public/chat.html')
+})
 
 app.get('/nodeInfo/:key', function(req,res, next){
 		var node = req.params.key
@@ -296,6 +313,3 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 
 // })
 
-app.listen(5003, function(){
-	console.log('listening on port 5003')
-})

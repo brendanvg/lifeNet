@@ -25,6 +25,11 @@ function initialize(){
 		clear: clear,
 		loadGroups: loadGroups,
 		graphSpecificGroup: graphSpecificGroup,
+		enterChat: enterChat,
+  	}
+
+  	function enterChat(){
+  		hyperquest('http://localhost:5003/enterChat')
   	}
 
 	function test () {

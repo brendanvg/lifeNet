@@ -32,7 +32,8 @@ savePositions.addEventListener('click', lnf.savePositions)
 var postJson1=document.getElementById("postJson1")
 postJson1.addEventListener("click", lnf.createNewNode)
 
-
+// var enterChat = document.getElementById('enterChat')
+// enterChat.addEventListener('click', lnf.enterChat)
 
 var clear = document.getElementById('clear')
 clear.addEventListener('click', lnf.clear)
@@ -48,6 +49,8 @@ var firstNode = {}
 var secondNode = {}
 var edgeClicked=false;
 
+// var firstNodeId = firstNode.id()
+// var secondNodeId = secondNode.id()
 
 cy.on('tap','edge', function(evt){
   if (edgeClicked) {
@@ -61,35 +64,32 @@ cy.on('tap','edge', function(evt){
 })
 
 cy.on('tap', 'node', function(evt){
+  //second click
   if (nClicked) {
-
-
     nClicked = false
-	console.log('byee')
-    var secondNode = evt.cyTarget
-    var secondNodeId = secondNode.id()
+	  // console.log('byee')
+    secondNode = evt.cyTarget
     var firstNodeId= firstNode.id()
-
-    if (secondNodeId = firstNodeId){
+    var secondNodeId = secondNode.id()
+    // console.log('c',firstNodeId, 'd',secondNodeId)
+    if (secondNodeId === firstNodeId){
       console.log('clicked myself')
       window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
     }
-
     else {
-      console.log('nodes2',firstNodeId, secondNodeId)
-  
+      // console.log('nodes2',firstNodeId, secondNodeId)
 	   lnf.addNewEdge(firstNodeId, secondNodeId)  
     // gnf.addDirectedEdge(firstNodeId, secondNodeId)
     }
   }
-
+  //first click
   else 
   {
-    var node1= evt.cyTarget
     nClicked=true
     firstNode= evt.cyTarget
+    // firstNodeId = firstNode.id()
     console.log('hiii')
-
+    console.log('a', firstNode, 'b', firstNodeId)
   }
 })
 
@@ -210,6 +210,11 @@ function initialize(){
 		clear: clear,
 		loadGroups: loadGroups,
 		graphSpecificGroup: graphSpecificGroup,
+		enterChat: enterChat,
+  	}
+
+  	function enterChat(){
+  		hyperquest('http://localhost:5003/enterChat')
   	}
 
 	function test () {
