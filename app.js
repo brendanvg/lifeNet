@@ -6,6 +6,8 @@ var levelup= require('levelup')
 var db = levelup('./myFlintDb')
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
+var netsDb = levelup('./netsDb')
+var netListDb= levelup('./netListDb')
 var h = require('hyperscript')
 var hyperstream = require('hyperstream')
 var fs = require('fs')
@@ -42,7 +44,7 @@ io.on('connection',function(socket){
 //db = {key: node, value: group,x,y }
 //edgesDb = key: node, value: [[inEdge, inEdge],[outEdge,outEdge]
 //groupsDb= {key:group, value: names of nodes in the group}
-
+//netsDb = {key:netName, value: see value for better data structure above}
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs');
@@ -147,6 +149,15 @@ app.get('/loadGroups', cors(corsOption), function (req,res,next){
     }) 
 })
 
+app.get('/loadNets', cors(corsOption), function (req,res,next){
+	var stream = netsDb.createReadStream()
+	collect(stream, (err,data) => {
+		res.writeHead(200, {'content-type': 'application/JSON'})
+      res.end(JSON.stringify(data))
+    }) 
+})
+
+
 app.post('/addGroup', cors(corsOption), function (req,res,next){
 	body(req,res,function(err,params){
 		var group= params.nodeGroup
@@ -164,6 +175,30 @@ app.post('/addGroup', cors(corsOption), function (req,res,next){
 			else {
 				value+=','+node
 					groupsDb.put(group,value, function(err){
+						if (err) console.log(err)
+					})
+			}
+		})
+	})
+	res.end()
+})
+
+app.post('/addNet', cors(corsOption), function (req,res,next){
+	body(req,res,function(err,params){
+		var netName= params.netName
+
+		netsDb.get(group, function(err,value){
+			if (err){
+				if (err.notFound){
+					netsDb.put(group, node, function(err){
+						if (err) console.log(err)
+					})
+				}
+				else console.log('uhoh',err)
+			}
+			else {
+				value+=','+node
+					netsDb.put(group,value, function(err){
 						if (err) console.log(err)
 					})
 			}

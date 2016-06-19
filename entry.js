@@ -16,6 +16,16 @@ var xhr= require('node-xhr')
 cy.style().selector('node:selected').style('background-color', 'magenta')
 
 //Event Listeners
+
+//at network start listeners
+var postNewNet= document.getElementById('postNewNet')
+postNewNet.addEventListener('click',lnf.postNewNet)
+
+var loadNets = document.getElementById('loadNetworks')
+loadNets.addEventListener('click',lnf.loadNets)
+
+//inside network listeners
+
 var graphAllNodes2=document.getElementById("graphAllNodes2")
 graphAllNodes2.addEventListener("click", lnf.graphAllNodes)
 
