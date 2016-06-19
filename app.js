@@ -26,9 +26,23 @@ io.on('connection',function(socket){
 
 // var dataRender=require('data-render')
 
+//BETTER DATA STRUCTURE 
+//key: network, 
+//value: [{
+// 		 node : node,
+//       group: group,
+// 		 position: x, y,
+//		 edge: [[inEdge, inEdge],[outEdge,outEdge]
+//}]
+//
+
+//downfall of this datastructure is that you have to search 
+//all nodes when matching groups
+
 //db = {key: node, value: group,x,y }
-//edgesDb = 
+//edgesDb = key: node, value: [[inEdge, inEdge],[outEdge,outEdge]
 //groupsDb= {key:group, value: names of nodes in the group}
+
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs');
