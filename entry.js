@@ -21,7 +21,7 @@ cy.style().selector('node:selected').style('background-color', 'magenta')
 var postNewNet= document.getElementById('postNewNet')
 postNewNet.addEventListener('click',lnf.postNewNet)
 
-var loadNets = document.getElementById('loadNetworks')
+var loadNets = document.getElementById('loadNets')
 loadNets.addEventListener('click',lnf.loadNets)
 
 //inside network listeners

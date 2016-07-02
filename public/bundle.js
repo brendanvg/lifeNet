@@ -22,7 +22,7 @@ cy.style().selector('node:selected').style('background-color', 'magenta')
 var postNewNet= document.getElementById('postNewNet')
 postNewNet.addEventListener('click',lnf.postNewNet)
 
-var loadNets = document.getElementById('loadNetworks')
+var loadNets = document.getElementById('loadNets')
 loadNets.addEventListener('click',lnf.loadNets)
 
 //inside network listeners
@@ -227,7 +227,7 @@ function initialize(){
 
 
   	function postNewNet(){
-  		var url = 'http://localhost:5003/postNewNet'
+  		var url = 'http://localhost:5003/addNet'
   		var netName=document.getElementById('netName').value
   		postJson(url,netName, loadNets) 
   	}

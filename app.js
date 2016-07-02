@@ -187,10 +187,10 @@ app.post('/addNet', cors(corsOption), function (req,res,next){
 	body(req,res,function(err,params){
 		var netName= params.netName
 
-		netsDb.get(group, function(err,value){
+		netsDb.get(netName, function(err,value){
 			if (err){
 				if (err.notFound){
-					netsDb.put(group, node, function(err){
+					netsDb.put(netName, node, function(err){
 						if (err) console.log(err)
 					})
 				}

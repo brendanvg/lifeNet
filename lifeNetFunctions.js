@@ -32,7 +32,7 @@ function initialize(){
 
 
   	function postNewNet(){
-  		var url = 'http://localhost:5003/postNewNet'
+  		var url = 'http://localhost:5003/addNet'
   		var netName=document.getElementById('netName').value
   		postJson(url,netName, loadNets) 
   	}
