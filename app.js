@@ -3,10 +3,10 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb')
+var db = levelup('./myFlintDb26')
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
-var netsDb = levelup('./netsDb')
+var netsDb = levelup('./netsDb1')
 var netListDb= levelup('./netListDb')
 var h = require('hyperscript')
 var hyperstream = require('hyperstream')
@@ -34,7 +34,7 @@ io.on('connection',function(socket){
 //specific properties...group property searched to highlight
 //and group like nodes (node can be in more than one group in a network)
 // value: [{
-// 		 node : node,
+// 		 nodeName : nodeName,
 //       group: group,
 // 		 position: x, y,
 //		 edge: [[inEdge, inEdge],[outEdge,outEdge]
@@ -152,12 +152,40 @@ app.get('/loadGroups', cors(corsOption), function (req,res,next){
     }) 
 })
 
-app.get('/loadNets', cors(corsOption), function (req,res,next){
+app.get('/loadNets3', cors(corsOption), function (req,res,next){
 	var stream = netsDb.createReadStream()
 	collect(stream, (err,data) => {
 		res.writeHead(200, {'content-type': 'application/JSON'})
       res.end(JSON.stringify(data))
     }) 
+})
+
+app.get('/loadNets', cors(corsOption), function (req,res,next){
+	
+	var finalDataArray= []
+	var stream = db.createKeyStream()	
+	.on('data', function(data){
+		console.log('aaaa',data)
+		finalDataArray.push(data) 
+		console.log('bbb',finalDataArray)
+	})
+
+	.on('error', function (err) {
+    	console.log('Oh my!', err)
+  	})
+  	.on('close', function () {
+    	console.log('Stream closed')
+  	})
+  	.on('end', function () {
+    	console.log('Stream ended', finalDataArray)
+		
+		res.end(JSON.stringify(finalDataArray))
+
+  	})
+	// collect(stream, (err,data) => {
+	// 	res.writeHead(200, {'content-type': 'application/JSON'})
+ //      res.end(JSON.stringify(data))
+ //    }) 
 })
 
 
@@ -230,12 +258,55 @@ app.get('/loadEdges', cors(corsOption), function(req,res,next){
 app.post('/addNode', cors(corsOption), function(req,res,next){
 	body(req,res, function(err,params){
 		console.log('ooooooowwww',params.nodeName)
+		//var value11 = params.nodeGroup+','+200+','+200
+		
+		var name = params.nodeName
+		var nets= params.nodeNetworks
+		var groups = params.nodeGroup 
 
-		var value11 = params.nodeGroup+','+200+','+200
-		db.put(params.nodeName, value11, function(err){
-			if (err) return console.log(err)
-			console.log('successfully put ',params.nodeName, value11)
+		//TODO: parse nets to see if we're adding multiple nets or just one
+
+
+		db.get(nets, function(err,value){
+			if (err) {
+				if (err.notFound){
+					var arrayOfObjects = []
+					var nodeObj = {} 
+						nodeObj.nodeName = name;
+						nodeObj.group = groups;
+
+					arrayOfObjects.push(nodeObj);
+					console.log('yyyyy', nodeObj, arrayOfObjects)
+					// array.push([])
+					// var inEdges= array[0]
+					// var outEdges=array[1]
+					// outEdges.push('!'+params.secondNode)
+
+				db.put(nets, arrayOfObjects, function(err){
+						if(err) return console.log(err)
+					})
+				}
+				else {console.log(err)}
+			}
+			// else {
+			// 	console.log('here', value)
+			// 	var array2= value.split('!')
+			// 	console.log('woooo', array2)
+			// 	array2[0]+='!'
+			// 	array2[1]+=','+params.secondNode
+			// 	console.log('yeaaa', array2)
+			// 	edgesDb.put(params.firstNode, array2, function(err){
+			// 	 	console.log('ooooo',array2)
+			// 	})
+			// }	
 		})
+
+
+
+		// db.put(params.nodeName, value11, function(err){
+		// 	if (err) return console.log(err)
+		// 	console.log('successfully put ',params.nodeName, value11)
+		// })
 	})
 	res.end()
 })

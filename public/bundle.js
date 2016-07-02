@@ -227,9 +227,9 @@ function initialize(){
 
 
   	function postNewNet(){
-  		var url = 'http://localhost:5003/addNet'
-  		var netName=document.getElementById('netName').value
-  		postJson(url,netName, loadNets) 
+  		// var url = 'http://localhost:5003/addNet'
+  		// var netName=document.getElementById('nodeNetworks').value
+  		// postJson(url,netName, loadNets) 
   	}
   	
   	function loadNets(callback3){
@@ -244,11 +244,11 @@ function initialize(){
 
 				for (i = 0; i<y.length; i++){
 					console.log('yep',y[i])
-					var groupLink = '<tr><button class = "groups" id="'+y[i].key+'">'+y[i].key+'</button><br>'
+					var groupLink = '<tr><button class = "groups" id="'+y[i]+'">'+y[i]+'</button><br>'
 				
 					listOfGroupLinks += groupLink
 				}
-				var parent= document.getElementById('groupLinkContent')
+				var parent= document.getElementById('netLinkContent')
 				parent.innerHTML=listOfGroupLinks
 			})
 		)
@@ -259,7 +259,7 @@ function initialize(){
 			for(var i = 0; i < groups1.length; i++)
  			{
    				console.log(groups1.item(i));
-   				groups1.item(i).addEventListener('click',graphSpecificGroup)
+   				groups1.item(i).addEventListener('click',graphSpecificNet)
 			 }
 		})
 	}	
@@ -320,18 +320,25 @@ function initialize(){
   	function createNewNode(){
   		var name= document.getElementById('nodeName').value
   		var group = document.getElementById('nodeGroup').value
+  		var networks = document.getElementById('nodeNetworks').value
   		var url = 'http://localhost:5003/addNode'
   		var url2 = 'http://localhost:5003/addGroup'
  
+
+  		var url3 = 'http://localhost:5003/addNet'
+  		var netName=document.getElementById('nodeNetworks').value
+  		postJson(url3,netName) 
+
 			if (name && group){
-				var body = {nodeName: name, nodeGroup: group}
+				var body = {nodeName: name, nodeNetworks: networks, nodeGroup: group}
 
 		  		postJson(url, body, function (err, result) {
 				})
-				addNode(name,group)
+				addNode(name,group);
+				loadGroups();
 				// savePositions()
 
-				postJson(url2, body, loadGroups)
+				//postJson(url2, body, loadGroups)
 
 
 				
@@ -375,6 +382,7 @@ function test5(){
 		})
 	}
 
+
 	
 
 	function addNewEdge(firstNodeId, secondNodeId) {
@@ -395,6 +403,10 @@ function test5(){
 		console.log('hi', group)
 		console.log('jackpot', stream2)
 		loadNodes(stream2)
+	}
+
+	function graphSpecificNet(){
+		console.log('not implemented yet! ....Do itttt :)')
 	}
 
 
