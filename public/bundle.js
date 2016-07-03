@@ -244,7 +244,7 @@ function initialize(){
 
 				for (i = 0; i<y.length; i++){
 					console.log('yep',y[i])
-					var groupLink = '<tr><button class = "groups" id="'+y[i]+'">'+y[i]+'</button><br>'
+					var groupLink = '<tr><button class = "nets" id="'+y[i]+'">'+y[i]+'</button><br>'
 				
 					listOfGroupLinks += groupLink
 				}
@@ -254,12 +254,12 @@ function initialize(){
 		)
 		stream3.on('finish', function(){
 			console.log('its done')
-			var groups1 = document.getElementsByClassName('groups')
+			var nets1 = document.getElementsByClassName('nets')
 
-			for(var i = 0; i < groups1.length; i++)
+			for(var i = 0; i < nets1.length; i++)
  			{
-   				console.log(groups1.item(i));
-   				groups1.item(i).addEventListener('click',graphSpecificNet)
+   				console.log(nets1.item(i));
+   				nets1.item(i).addEventListener('click',graphSpecificNet)
 			 }
 		})
 	}	
@@ -406,7 +406,11 @@ function test5(){
 	}
 
 	function graphSpecificNet(){
-		console.log('not implemented yet! ....Do itttt :)')
+		var net= this.id
+		var stream3 = hyperquest('http://localhost:5003/graphSpecificNet/'+net)
+		console.log('hi', net)
+		console.log('jackpot', stream3)
+		loadNodes(stream3)	
 	}
 
 

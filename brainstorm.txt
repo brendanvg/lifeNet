@@ -1,0 +1,11 @@
+-make the app so that anyone can customize and create their own networking app (graphical api---change color of central nodes, add forums to edges/nodes)
+
+
+-my ideas
+	-make it so that we can connect people as we branch out and make new relationships (laura in Central America, myself in Flint....)
+	-each network be a body/ organism -- with organs to do specific functions
+		-organs are big nodes with a task/function/ purpose essential to the body's well being -> i.e. legal research for Tru, fundraising, etc....
+			- people can connect their nodes to multiple organs, and each organ has a public forum attached to it
+	- make an app for a local (relatively fixed) community - i.e. golden corral coworkers
+	-make an app for a local people trying to organize something new
+		-i.e. Tru and the garden..... 	

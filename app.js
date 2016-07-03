@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb26')
+var db = levelup('./myFlintDb27', {valueEncoding: 'json'})
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
@@ -144,6 +144,59 @@ app.get('/graphSpecificGroup/:key', function(req,res){
   	})
 })
 
+app.get('/graphSpecificNet/:key', function(req,res){
+	var net= req.params.key
+
+	var finalDataArray2= []
+	db.get(net, function(err,value){
+		if(err){
+			if (err.notFound){
+				console.log('not found')
+				return
+			}
+			return callback(err)
+		}
+		else {
+			console.log('yessssss', value)
+
+			for (i =0; i<value.length; i++){
+				var nodeName3 = value[i].nodeName
+				console.log('ha',nodeName3)
+				finalDataArray2.push(nodeName3)
+				// console.log('oh', value[i], 'a', value[i].values(), 'b', value[i].keys(), 'c', value[i].entries())
+			}
+			res.end(JSON.stringify(finalDataArray2))
+		}
+	})
+
+// db.createReadStream()
+// 	.on('data', function(data){
+// 		console.log('yyyyyy!!!', data)
+
+
+// 		// var array = data.value.split(',')
+// 		// if (array[0] === group) {
+// 		// 	console.log('woootyyyy',array[0], array[1], array[2])
+// 		// 	console.log('ohhhyea', data, typeof data)
+// 		// finalDataArray.push(data) 
+// 		// console.log('updated array', finalDataArray)
+// 		// }
+// 	})
+
+// 	.on('error', function (err) {
+//     	console.log('Oh my!', err)
+//   	})
+//   	.on('close', function () {
+//     	console.log('Stream closed')
+//   	})
+//   	.on('end', function () {
+//     	console.log('Stream ended')
+// 		// res.end(JSON.stringify(finalDataArray))
+
+//   	})
+})
+
+
 app.get('/loadGroups', cors(corsOption), function (req,res,next){
 	var stream = groupsDb.createReadStream()
 	collect(stream, (err,data) => {
@@ -276,7 +329,7 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 						nodeObj.group = groups;
 
 					arrayOfObjects.push(nodeObj);
-					console.log('yyyyy', nodeObj, arrayOfObjects)
+					console.log('xxx', nodeObj, arrayOfObjects)
 					// array.push([])
 					// var inEdges= array[0]
 					// var outEdges=array[1]
