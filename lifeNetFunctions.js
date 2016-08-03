@@ -141,7 +141,7 @@ function initialize(){
 				})
 				addNode(name,group);
 				loadGroups();
-				// savePositions()
+				savePositions()
 
 				//postJson(url2, body, loadGroups)
 
@@ -233,32 +233,33 @@ function test5(){
 	    		console.log('type', typeof y)
 
 	    		for (i = 0; i<y.length; i++){
-	    			if (typeof y === "object") {
-		    			var key = y[i].key
-		    			var value = y[i].value
-		        		console.log('nodeee key is '+key)
-		    			console.log('nodeee value is '+value)
+	    			console.log[y[i]]
+	    	// 		if (typeof y === "object") {
+		    // 			var key = y[i].key
+		    // 			var value = y[i].value
+		    //     		console.log('nodeee key is '+key)
+		    // 			console.log('nodeee value is '+value)
 		    			
 
-		    			var array= value.split(',')
-		  				console.log(array)
+		    // 			var array= value.split(',')
+		  		// 		console.log(array)
 
-		  				var netGroup = array[0]
-						var x2= Number(array[1])
-		     			var y2 = Number(array[2])
-		     			console.log('important',x2,y2)
+		  		// 		var netGroup = array[0]
+						// var x2= Number(array[1])
+		    //  			var y2 = Number(array[2])
+		    //  			console.log('important',x2,y2)
 
 
-		  				cy.add({
-					        group:"nodes",
-					        data: {
-					          weight:75,
-					          id:key,
-					        },
-					        position: {x: x2, y : y2},
-					        classes:netGroup,
-					    })
-		  			}
+		  		// 		cy.add({
+					 //        group:"nodes",
+					 //        data: {
+					 //          weight:75,
+					 //          id:key,
+					 //        },
+					 //        position: {x: x2, y : y2},
+					 //        classes:netGroup,
+					 //    })
+		  		// 	}
 	    		}
 	    	})
 		)
@@ -314,8 +315,10 @@ function test5(){
 	function savePositions(){
 		cy.nodes().forEach(function(ele){
 			console.log( ele.id() )
+			console.log('gotacatchem ', ele)
 			var id= ele.id()
 			var positionObject= ele.renderedPosition()
+
 			var url = 'http://localhost:5003/savePositions'
 			var body= {name:id, positionObject}
 

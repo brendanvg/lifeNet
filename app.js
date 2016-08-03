@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb27', {valueEncoding: 'json'})
+var db = levelup('./myFlintDb29', {valueEncoding: 'json'})
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
@@ -452,8 +452,10 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 		console.log('server id ', nodeName)
 		console.log('server side x= ', x)
 		console.log('server side y= ', y)
+		console.log('position object= ', positionObject)
 
-		db.get(nodeName, function(err,value){
+
+		/*db.get(nodeName, function(err,value){
 			console.log('key of db id ', value)
 			var value1=value
 			var valArray= value1.split(',')
@@ -470,7 +472,7 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 				if (err) return console.log('err= ',err)
 			})
 
-		})
+		})*/
 	})
 	res.end()
 })

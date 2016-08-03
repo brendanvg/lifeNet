@@ -1,0 +1,227 @@
+[33mcommit 931af39aec4f3d6de4dea733e15fe2b09003c3ad[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sun Jul 3 02:00:48 2016 -0400
+
+    have to redo savePositions and loadNodes to add positions of nodes into new object data structure
+
+[33mcommit 46aebceedfcd535bdbec57f8099db750e27bc038[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sat Jul 2 02:57:28 2016 -0400
+
+    changed data structure, nets adding and loading, clicking on network link should graph all nodes and edges in that network...
+
+[33mcommit 1f1ff6bf0b06547da9cef8839005cd1c812e4af4[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sat Jul 2 01:14:08 2016 -0400
+
+    before data switch.... when adding node should be able to type in multiple groups and multiple networks seperated by comma (then we can parse for it and save the node appropriately)
+
+[33mcommit 75e0897cd9ce179daacf92e49e1a9dfb76a922d8[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sat Jul 2 00:57:01 2016 -0400
+
+    going to switch data layout in db to be compatible with network (object)
+
+[33mcommit 1aca0e28a4ad6cd801be648d70e80625c8e72108[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sun Jun 19 01:17:30 2016 -0400
+
+    current problem is that we cant put js functions on entry.js lnf because we dont have all elements we need for entrys listeners.....trying to run functions by themselves at script underneath but no postjson npm module....perhaps create entryjs/bundle specific for the first page???
+
+[33mcommit d6caa9d8cc5c0471c16de1c52986534a9e746cfc[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sun Jun 19 00:18:29 2016 -0400
+
+    before changing datastructure of program to array of objects with network as key
+
+[33mcommit 620d569dbc88080d6052a135e1c4941b9cffcd2f[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sun Jun 12 00:34:30 2016 -0400
+
+    clicking for info and edges working, chat not working because of added bootstrap and js css loading, load chat.html by itself, app still needs to have different edge types and color code everything....then from there do computations on everything connected by this edge group, etc... think about multiple networks (right now its one network with multiple groups, think about multiple users, usernames, login, user specific network, requests to be added to another persons network, showing whose network youre a part of, requests from someone on your network to share something...etc.
+
+[33mcommit 86c964d9196937b502b8a2313fbef722455c7a4a[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Fri May 13 23:06:02 2016 -0400
+
+    before implementing chatroom
+
+[33mcommit 01f8b333b9c73d10aa4abf130b50b8a4a0c12f3f[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 12 22:46:27 2016 -0400
+
+    implementing ejs rendering with data
+
+[33mcommit 75cec1199f16b1730bff4cb08d19e7eeb3236ade[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Wed May 11 00:05:19 2016 -0400
+
+    and add searchable attributes to each node
+
+[33mcommit 75bc702aa65d46a9a9729a70ad5a29d6c14cf8b0[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue May 10 23:59:53 2016 -0400
+
+    need to work on naming different types of edges and searching/highlighint all edges of that type and also color coding different groups
+
+[33mcommit fe7a15624438f31df93506ce0ac1f54291d3dbf9[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue May 10 23:13:57 2016 -0400
+
+    before adding checkbox to groups
+
+[33mcommit 5261c08327ef6d54f36432031c567c79225838df[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 5 01:46:15 2016 -0400
+
+    load edges only graphing the first edge i added while clicking
+
+[33mcommit 7fda9b82451cc579ceab3906d6c8291250ead55f[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 5 01:31:24 2016 -0400
+
+    what to do when someone is in more than one group
+
+[33mcommit dedbbdf5e1f6071cfecc5427040bb990e9ed2166[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 5 01:27:47 2016 -0400
+
+    everything working really well
+
+[33mcommit 2e739ac4a095ff3951c072b10c3975daa8cb50cd[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 5 01:06:33 2016 -0400
+
+    code cleaned a bit, still before bootstrapping
+
+[33mcommit 825ce571d3fa84c3e707e56805544c91709a34a7[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 5 01:03:57 2016 -0400
+
+    before bootstrapping
+
+[33mcommit 5bb77b6ad7b7728f81471c2cb97dc8e2d298e469[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 5 00:59:05 2016 -0400
+
+    everything working! except we need to fix adding edges twice, and click once on button to make nodegroup appear, click again to make it dissappear
+
+[33mcommit 326a722cff2215504fb711c0b1056d73754d1291[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Thu May 5 00:11:47 2016 -0400
+
+    looping through new buttons
+
+[33mcommit 3f249a54fa8307266434d1cba1def49ac7f574b2[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Wed May 4 22:51:36 2016 -0400
+
+    graphing all nodes resolved
+
+[33mcommit 0109ead39f3367a616470fd311425c366b8f6c87[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Wed May 4 22:47:17 2016 -0400
+
+    loadNodes seperated into specific groups vs processing data of stream
+
+[33mcommit 8e7e3ec279d1a2235f196c7ec0a339446d11a64d[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Fri Apr 29 23:56:18 2016 -0400
+
+    groups being saved and then loading into linked list at addNode, but need to get it linked so this list loads at the beginning of the page load and also need to link the links to trigger loading just the nodes in that group
+
+[33mcommit e8dbb86d061290ac8df07b209ca602ca1d004e70[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Fri Apr 29 11:53:50 2016 -0400
+
+    think i added classes (in lnf)....now I need to do hyperstream when new class name created (like in login) and then when that link is clicked on, make it load those nodes (create new lnf.loadNodes)
+
+[33mcommit 4e0e91a84cd84e46b3c0c170520e48c93a50b11e[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Fri Apr 29 11:42:06 2016 -0400
+
+    cleaned up code
+
+[33mcommit fd55456e6e0a88b7c8d7ad6f20834aaa1bb5f50c[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Fri Apr 29 11:40:12 2016 -0400
+
+    adding and loading edges, clearing sheet, everything is tworkin
+
+[33mcommit 10adf27c8b93044fbd498cccdbf872fb38861e0e[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Fri Apr 29 00:01:36 2016 -0400
+
+    working, but when you add one edge a->b and then hit load edges there are two edges a->b and b->a
+
+[33mcommit 8b6c08f3cc5ecdae030a6388bf472b23202a4812[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue Apr 26 22:39:13 2016 -0400
+
+    need to make edgesDb key: node, value: [[inEdge, inEdge],[outEdge,outEdge]]
+
+[33mcommit 754c15ab6ec2329f7e1e1d770ce04247a82169d5[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue Apr 26 19:12:47 2016 -0400
+
+    before trying to add things as arrays
+
+[33mcommit 137f8d325415f6047f46c25879311963b4ba4a31[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue Apr 26 17:49:37 2016 -0400
+
+    everything working! saving to database and updating positions and loading nodes in saved updated positions!!!
+
+[33mcommit 8e79b620bd71690888f4b632e2180322b6bbbaba[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue Apr 26 17:33:29 2016 -0400
+
+    working with saving positions
+
+[33mcommit a82a490e8458d87b8b59b45331606f183ed21d28[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Wed Apr 20 02:07:15 2016 -0400
+
+    everything working, im about to change add node in generic which is called during loadnodes to include position (defined during savepositions) but dont know if it will be a problem if a node was added during Add Node popup without a position
+
+[33mcommit ebde9ec307e4b37dadf4ec70ce7af6a4c63bd305[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Wed Apr 20 00:37:10 2016 -0400
+
+    cleaned up ui
+
+[33mcommit fe10cfcba21aa7ad61223cbc61e2d34000dfa046[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Wed Apr 20 00:27:36 2016 -0400
+
+    code cleaned
+
+[33mcommit 49518ba0f849f8a27c1bb0fe4321df2ecde0fee8[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Wed Apr 20 00:25:05 2016 -0400
+
+    ajax posting new nodes to database and showing up on screen...now have to work on save position to db button
+
+[33mcommit f8ac8db7f73c576567e27c9dc883285a6540d097[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue Apr 19 01:36:16 2016 -0400
+
+    got things working except for parsing jquery json
+
+[33mcommit 8bebfd1dccd50b6b29375897f3de9830d9b8ea60[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Tue Apr 19 00:49:08 2016 -0400
+
+    form data sent, but xhr post is pending and cant figure out how to handle form data without reload...will attemp full jquery preventDefault and then new style of parsing pure ajax on server side
+
+[33mcommit 58712ee806b9c5e5db5f9868f4abaaf666425829[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Mon Apr 18 22:42:57 2016 -0400
+
+    nodes adding, now need to position them
+
+[33mcommit 17d70f89e95a00ff23118898a12420ec4590be38[m
+Author: Brendan Van Gorder <brendanvg10@gmail.com>
+Date:   Sun Apr 17 00:10:14 2016 -0400
+
+    about to add nodes to database and to graph...when nodes move on graph, position is uploaded to database, at the beginning of each network page load, database is graphed
