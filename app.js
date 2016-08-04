@@ -453,7 +453,23 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 		console.log('server side x= ', x)
 		console.log('server side y= ', y)
 		console.log('position object= ', positionObject)
-
+	
+	db.get(params.currentNet, function(err,value){
+		var arrayOfObjects = []
+		for (var i = 0; i < value.length; i++) {
+			if (value[i] = nodeName) {
+				value[i].position = [x,y]
+				arrayOfObjects.push(value[i])
+			}
+			else {
+				arrayOfObjects.push(value[i])
+			}
+		}
+		db.put(params.currentNet, arrayOfObjects)
+		db.get(params.currentNet, function(err,value){
+			console.log('and heres the check: ',value)
+		})
+	})
 
 		/*db.get(nodeName, function(err,value){
 			console.log('key of db id ', value)

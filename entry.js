@@ -24,6 +24,10 @@ postNewNet.addEventListener('click',lnf.postNewNet)
 var loadNets = document.getElementById('loadNets')
 loadNets.addEventListener('click',lnf.loadNets)
 
+function onIndexLoad () {
+  lnf.loadNets()
+}
+
 //inside network listeners
 
 var graphAllNodes2=document.getElementById("graphAllNodes2")

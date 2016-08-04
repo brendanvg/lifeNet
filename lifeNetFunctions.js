@@ -212,8 +212,9 @@ function test5(){
 
 	function graphSpecificNet(){
 		var net= this.id
+		document.getElementById('currentNet').value = net
 		var stream3 = hyperquest('http://localhost:5003/graphSpecificNet/'+net)
-		console.log('hi', net)
+		console.log('hi77777777777777777777', net)
 		console.log('jackpot', stream3)
 		loadNodes(stream3)	
 	}
@@ -318,9 +319,11 @@ function test5(){
 			console.log('gotacatchem ', ele)
 			var id= ele.id()
 			var positionObject= ele.renderedPosition()
+			var currentNet = document.getElementById('currentNet').value
+			console.log('yippppeee', currentNet)
 
 			var url = 'http://localhost:5003/savePositions'
-			var body= {name:id, positionObject}
+			var body= {name:id, positionObject, currentNet}
 
 			postJson(url,body,function(err,result){
 				console.log('client side positions posted')
