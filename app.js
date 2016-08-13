@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb40', {valueEncoding: 'json'})
+var db = levelup('./myFlintDb46', {valueEncoding: 'json'})
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
@@ -77,9 +77,16 @@ app.use(express.static('public'))
 
 // })
 
+app.get('/checkDb/:net',function(req,res,next){
+	db.get(req.params.net, function(err,value){
+		console.log('currently selected Net includes::::::::',value)
+	})
+})
+
 app.get('/enterChat', function(req,res,next){
 	res.sendFile('http://localhost:5003/public/chat.html')
 })
+
 
 app.get('/nodeInfo/:key', function(req,res, next){
 		var node = req.params.key
@@ -471,6 +478,7 @@ app.post('/addEdge', cors(corsOption), function(req,res,next){
 	})
 	res.end()
 })
+
 
 app.post('/savePositions', cors(corsOption), function(req,res,next){
 	body(req,res,function(err,params){

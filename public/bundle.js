@@ -25,6 +25,8 @@ postNewNet.addEventListener('click',lnf.postNewNet)
 var loadNets = document.getElementById('loadNets')
 loadNets.addEventListener('click',lnf.loadNets)
 
+var checkDb= document.getElementById('checkDb')
+checkDb.addEventListener('click',lnf.checkDb)
 function onIndexLoad () {
   lnf.loadNets()
 }
@@ -224,6 +226,7 @@ function initialize(){
 		loadGroups: loadGroups,
 		graphSpecificGroup: graphSpecificGroup,
 		enterChat: enterChat,
+		checkDb:checkDb
   	}
 
 
@@ -267,6 +270,10 @@ function initialize(){
 		})
 	}	
   	
+  	function checkDb(){
+  		var net = document.getElementById('currentNet').value
+  		hyperquest('http://localhost:5003/checkDb/'+net)
+  	}
 
 
   	function enterChat(){
@@ -295,6 +302,7 @@ function initialize(){
 	        position: {x: 200, y : 200},
 	        classes: group,
     	})
+    	savePositions()
 	}		
 	function addDirectedEdge(source,target) {
 	     cy.add({
@@ -339,14 +347,15 @@ function initialize(){
 				})
 				addNode(name,group);
 /*				loadGroups();
-*/				//savePositions()
-
+				savePositions()
+*/
 				//postJson(url2, body, loadGroups)
 
-
+				savePositions()
 				
 			}
 			else alert('Name and group are both required')
+			savePositions()
 	}
 
 function test5(){
@@ -429,6 +438,7 @@ function test5(){
 		stream1.pipe(catS(function(data){
 			var arrayOfOs= JSON.parse(data)
 			
+			console.log('hhhhh!!!!!!!!!', arrayOfOs)
 			arrayOfOs.forEach(function(arrayItem){
 				console.log('heeeeee',arrayItem.nodeName, arrayItem.position, arrayItem.group, '!!!', arrayItem)
 				cy.add({
@@ -530,21 +540,26 @@ function test5(){
 	}
 
 	function savePositions(){
-		cy.nodes().forEach(function(ele){
-			console.log( ele.id() )
-			console.log('gotacatchem ', ele)
-			var id= ele.id()
-			var positionObject= ele.renderedPosition()
-			var currentNet = document.getElementById('currentNet').value
-			console.log('yippppeee', currentNet)
+		console.log('match thisss!!!!!!!!!', document.getElementById('currentNet'))
+		if (document.getElementById('currentNet').value){
+			console.log('ooooook')
+			cy.nodes().forEach(function(ele){
+				console.log( ele.id() )
+				console.log('gotacatchem ', ele)
+				var id= ele.id()
+				var positionObject= ele.renderedPosition()
+				var currentNet = document.getElementById('currentNet').value
+				console.log('yippppeee', currentNet)
 
-			var url = 'http://localhost:5003/savePositions'
-			var body= {name:id, positionObject, currentNet}
+				var url = 'http://localhost:5003/savePositions'
+				var body= {name:id, positionObject, currentNet}
 
-			postJson(url,body,function(err,result){
-				console.log('client side positions posted')
+				postJson(url,body,function(err,result){
+					console.log('client side positions posted')
+				})
 			})
-		})
+		}
+		else{console.log('ooopsy lnf.savePositions')}
 	}
 
 }
