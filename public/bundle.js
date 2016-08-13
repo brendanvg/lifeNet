@@ -29,10 +29,7 @@ function onIndexLoad () {
   lnf.loadNets()
 }
 
-//inside network listeners
-
-var graphAllNodes2=document.getElementById("graphAllNodes2")
-graphAllNodes2.addEventListener("click", lnf.graphAllNodes)
+onIndexLoad()
 
 var loadGroups=document.getElementById("loadGroups")
 loadGroups.addEventListener("click", lnf.loadGroups)
@@ -236,7 +233,7 @@ function initialize(){
   		// postJson(url,netName, loadNets) 
   	}
   	
-  	function loadNets(callback3){
+  	function loadNets(/*callback3*/){
 
 		var listOfGroupLinks = ""
 		var stream3 = hyperquest('http://localhost:5003/loadNets')
@@ -251,6 +248,8 @@ function initialize(){
 					var groupLink = '<tr><button class = "nets" id="'+y[i]+'">'+y[i]+'</button><br>'
 				
 					listOfGroupLinks += groupLink
+					document.getElementById('currentNet').value = y[i]
+
 				}
 				var parent= document.getElementById('netLinkContent')
 				parent.innerHTML=listOfGroupLinks
@@ -262,7 +261,7 @@ function initialize(){
 
 			for(var i = 0; i < nets1.length; i++)
  			{
-   				console.log(nets1.item(i));
+   				console.log('loadnetshmmm', nets1.item(i));
    				nets1.item(i).addEventListener('click',graphSpecificNet)
 			 }
 		})
@@ -326,21 +325,21 @@ function initialize(){
   		var group = document.getElementById('nodeGroup').value
   		var networks = document.getElementById('nodeNetworks').value
   		var url = 'http://localhost:5003/addNode'
-  		var url2 = 'http://localhost:5003/addGroup'
- 
+/*  		var url2 = 'http://localhost:5003/addGroup'
+*/ 
 
-  		var url3 = 'http://localhost:5003/addNet'
-  		var netName=document.getElementById('nodeNetworks').value
-  		postJson(url3,netName) 
-
+/*  		var url3 = 'http://localhost:5003/addNet'
+*/  		var netName=document.getElementById('nodeNetworks').value
+/*  		postJson(url3,netName) 
+*/
 			if (name && group){
 				var body = {nodeName: name, nodeNetworks: networks, nodeGroup: group}
 
 		  		postJson(url, body, function (err, result) {
 				})
 				addNode(name,group);
-				loadGroups();
-				savePositions()
+/*				loadGroups();
+*/				//savePositions()
 
 				//postJson(url2, body, loadGroups)
 
@@ -426,14 +425,26 @@ function test5(){
 	}
 
 	function loadNodes(stream1){
-		stream1.pipe(catS(function(data){
-	    		var x = data.toString()
-	    		var y = JSON.parse(x)
-	    		console.log('thisisy', y)
-	    		console.log('type', typeof y)
 
-	    		for (i = 0; i<y.length; i++){
-	    			console.log[y[i]]
+		stream1.pipe(catS(function(data){
+			var arrayOfOs= JSON.parse(data)
+			console.log('loadNodes what we workin wit', arrayOfOs.nodeName)
+			console.log('loadNodes what we workin wit', arrayOfOs)
+
+			console.log('type of what we workin wit',typeof(arrayOfOs))
+			for (var i = 0; i < arrayOfOs.length; i++) {
+				var nodeName= arrayOfOs[i].nodeName
+				var group = arrayOfOs[i].group
+				console.log('ooooo', nodeName)
+			}
+		}))
+	}
+	    	/*	var x = data.toString()
+	    		var y = JSON.parse(x)
+	    		console.log('thisisy', y.group)
+	    		console.log(	    	)
+	    			for (i = 0; i<y.length; i++){
+	    			console.log[y[i]]*/
 	    	// 		if (typeof y === "object") {
 		    // 			var key = y[i].key
 		    // 			var value = y[i].value
@@ -460,11 +471,11 @@ function test5(){
 					 //        classes:netGroup,
 					 //    })
 		  		// 	}
-	    		}
+	    /*		}
 	    	})
 		)
 
-	}
+	}*/
 
 	function loadEdges(){
 		console.log('Fuuuu')

@@ -28,10 +28,7 @@ function onIndexLoad () {
   lnf.loadNets()
 }
 
-//inside network listeners
-
-var graphAllNodes2=document.getElementById("graphAllNodes2")
-graphAllNodes2.addEventListener("click", lnf.graphAllNodes)
+onIndexLoad()
 
 var loadGroups=document.getElementById("loadGroups")
 loadGroups.addEventListener("click", lnf.loadGroups)

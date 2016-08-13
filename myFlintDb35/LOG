@@ -1,0 +1,6 @@
+2016/08/12-19:56:10.359451 7fd0fe0fb700 Recovering log #26
+2016/08/12-19:56:10.360038 7fd0fe0fb700 Level-0 table #28: started
+2016/08/12-19:56:10.372929 7fd0fe0fb700 Level-0 table #28: 257 bytes OK
+2016/08/12-19:56:10.415879 7fd0fe0fb700 Delete type=0 #26
+2016/08/12-19:56:10.416099 7fd0fe0fb700 Delete type=3 #25
+2016/08/12-19:56:10.426951 7fd0fd8fa700 Moved #16 to level-1 290 bytes OK: files[ 3 2 0 0 0 0 0 ]

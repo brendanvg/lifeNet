@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb29', {valueEncoding: 'json'})
+var db = levelup('./myFlintDb39', {valueEncoding: 'json'})
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
@@ -159,13 +159,16 @@ app.get('/graphSpecificNet/:key', function(req,res){
 		else {
 			console.log('yessssss', value)
 
-			for (i =0; i<value.length; i++){
+			/*for (i =0; i<value.length; i++){
 				var nodeName3 = value[i].nodeName
 				console.log('ha',nodeName3)
 				finalDataArray2.push(nodeName3)
 				// console.log('oh', value[i], 'a', value[i].values(), 'b', value[i].keys(), 'c', value[i].entries())
 			}
-			res.end(JSON.stringify(finalDataArray2))
+			res.end(JSON.stringify(finalDataArray2))*/
+			
+			res.end(JSON.stringify(value))
+
 		}
 	})
 
@@ -337,10 +340,36 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 
 				db.put(nets, arrayOfObjects, function(err){
 						if(err) return console.log(err)
+						else {
+							db.get(nets, function(err,value){
+								console.log('the big addNode check for db', value)
+							})
+						}
 					})
 				}
+				
 				else {console.log(err)}
+
 			}
+
+			else{
+				var arrayOfObjects2=value
+				var nodeObj= {}
+					nodeObj.nodeName=name
+					nodeObj.group = groups
+
+				arrayOfObjects2.push(nodeObj)
+				db.put(nets, arrayOfObjects2, function(err){
+					if (err) {console.log('nooo',err)}
+					else {
+						db.get(nets, function(err,value){
+								console.log('the big addNode check for db of saamme net', value)
+						})
+					}
+				})
+
+			}
+
 			// else {
 			// 	console.log('here', value)
 			// 	var array2= value.split('!')
@@ -446,31 +475,60 @@ app.post('/addEdge', cors(corsOption), function(req,res,next){
 app.post('/savePositions', cors(corsOption), function(req,res,next){
 	body(req,res,function(err,params){
 		var positionObject = params.positionObject
-		var nodeName = params.name
+		var nodeName1 = params.name
 		var x=positionObject.x
 		var y=positionObject.y
-		console.log('server id ', nodeName)
+		console.log('server id ', nodeName1)
 		console.log('server side x= ', x)
 		console.log('server side y= ', y)
 		console.log('position object= ', positionObject)
 	
 	db.get(params.currentNet, function(err,value){
+		console.log('wwwwwwwwwwwwwwwwwwwww', value, typeof value)
 		var arrayOfObjects = []
-		for (var i = 0; i < value.length; i++) {
+		
+		value.forEach(function(arrayItem){
+			/*arrayItem.position=positionObject
+			console.log('wahhtt', arrayItem, arrayItem.position, typeof arrayItem)
+		*/
+			if (arrayItem.nodeName = nodeName1){
+				arrayItem.position=positionObject
+				arrayOfObjects.push(arrayItem)
+			}
+			else{
+				arrayOfObjects.push(arrayItem)
+			}
+
+		})
+	/*	for (var i = 0; i < value.length; i++) {
 			if (value[i] = nodeName) {
-				value[i].position = [x,y]
+				value[i].nodeName= 'hhhhh'
+				value[i].position = positionObject
+				//[x,y]
+				console.log('value[i]====', value[i].position)
+				console.log('value', value[i].nodeName)
+				console.log('hhhhhzzzz', value[i],typeof value[i])
 				arrayOfObjects.push(value[i])
 			}
 			else {
 				arrayOfObjects.push(value[i])
 			}
-		}
-		db.put(params.currentNet, arrayOfObjects)
+		}*/
+	
+		db.put(params.currentNet, arrayOfObjects, function(err){
+			console.log('did it')
+		})
+
 		db.get(params.currentNet, function(err,value){
-			console.log('and heres the check: ',value)
+			console.log('thebiiiiiiiiiiiiiig check', value)
+			/*for (var i = 0; i < value.length; i++) {
+			 	var obj= value[i]
+
+			console.log('and heres the check: ',obj.position)
+
+			}*/
 		})
 	})
-
 		/*db.get(nodeName, function(err,value){
 			console.log('key of db id ', value)
 			var value1=value
