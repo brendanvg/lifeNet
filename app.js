@@ -476,77 +476,29 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 	body(req,res,function(err,params){
 		var positionObject = params.positionObject
 		var nodeName1 = params.name
-		var x=positionObject.x
-		var y=positionObject.y
-		console.log('server id ', nodeName1)
-		console.log('server side x= ', x)
-		console.log('server side y= ', y)
-		console.log('position object= ', positionObject)
 	
-	db.get(params.currentNet, function(err,value){
-		console.log('wwwwwwwwwwwwwwwwwwwww', value, typeof value)
-		var arrayOfObjects = []
-		
-		value.forEach(function(arrayItem){
-			/*arrayItem.position=positionObject
-			console.log('wahhtt', arrayItem, arrayItem.position, typeof arrayItem)
-		*/
-			if (arrayItem.nodeName = nodeName1){
-				arrayItem.position=positionObject
-				arrayOfObjects.push(arrayItem)
-			}
-			else{
-				arrayOfObjects.push(arrayItem)
-			}
-
-		})
-	/*	for (var i = 0; i < value.length; i++) {
-			if (value[i] = nodeName) {
-				value[i].nodeName= 'hhhhh'
-				value[i].position = positionObject
-				//[x,y]
-				console.log('value[i]====', value[i].position)
-				console.log('value', value[i].nodeName)
-				console.log('hhhhhzzzz', value[i],typeof value[i])
-				arrayOfObjects.push(value[i])
-			}
-			else {
-				arrayOfObjects.push(value[i])
-			}
-		}*/
-	
-		db.put(params.currentNet, arrayOfObjects, function(err){
-			console.log('did it')
-		})
-
 		db.get(params.currentNet, function(err,value){
-			console.log('thebiiiiiiiiiiiiiig check', value)
-			/*for (var i = 0; i < value.length; i++) {
-			 	var obj= value[i]
-
-			console.log('and heres the check: ',obj.position)
-
-			}*/
-		})
-	})
-		/*db.get(nodeName, function(err,value){
-			console.log('key of db id ', value)
-			var value1=value
-			var valArray= value1.split(',')
-			console.log('valllll array', valArray)
-			valArray[1]=x
-			valArray[2]=y
-			var newString = valArray.toString()
-			console.log('updated x and y', valArray[1], valArray[2])
-
-			// var newValue= value1+','+x+','+y
+			console.log('wwwwwwwwwwwwwwwwwwwww', value, typeof value)
+			var arrayOfObjects = []
 			
-			// db.put(nodeName, valArray, function(err){
-			db.put(nodeName, newString, function(err){
-				if (err) return console.log('err= ',err)
+			value.forEach(function(arrayItem){
+				if (arrayItem.nodeName = nodeName1){
+					arrayItem.position=positionObject
+					arrayOfObjects.push(arrayItem)
+				}
+				else{
+					arrayOfObjects.push(arrayItem)
+				}
+			})
+		
+			db.put(params.currentNet, arrayOfObjects, function(err){
+				console.log('did it')
 			})
 
-		})*/
+			db.get(params.currentNet, function(err,value){
+				console.log('thebiiiiiiiiiiiiiig check', value)
+			})
+		})	
 	})
 	res.end()
 })
