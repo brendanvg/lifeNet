@@ -428,7 +428,21 @@ function test5(){
 
 		stream1.pipe(catS(function(data){
 			var arrayOfOs= JSON.parse(data)
-			console.log('loadNodes what we workin wit', arrayOfOs.nodeName)
+			
+			arrayOfOs.forEach(function(arrayItem){
+				console.log('heeeeee',arrayItem.nodeName, arrayItem.position, arrayItem.group, '!!!', arrayItem)
+				cy.add({
+			        group:"nodes",
+			        data: {
+			          weight:75,
+			          id:arrayItem.nodeName,
+			        },
+			        position: {x: arrayItem.position.x, y : arrayItem.position.y},
+			        classes:arrayItem.group,
+			    })
+			})
+
+			/*console.log('loadNodes what we workin wit', arrayOfOs.nodeName)
 			console.log('loadNodes what we workin wit', arrayOfOs)
 
 			console.log('type of what we workin wit',typeof(arrayOfOs))
@@ -436,7 +450,7 @@ function test5(){
 				var nodeName= arrayOfOs[i].nodeName
 				var group = arrayOfOs[i].group
 				console.log('ooooo', nodeName)
-			}
+			}*/
 		}))
 	}
 	    	/*	var x = data.toString()
@@ -461,15 +475,7 @@ function test5(){
 		    //  			console.log('important',x2,y2)
 
 
-		  		// 		cy.add({
-					 //        group:"nodes",
-					 //        data: {
-					 //          weight:75,
-					 //          id:key,
-					 //        },
-					 //        position: {x: x2, y : y2},
-					 //        classes:netGroup,
-					 //    })
+		  		// 		
 		  		// 	}
 	    /*		}
 	    	})
