@@ -4,8 +4,8 @@ var catS = require('concat-stream')
 var gnfModule = require('./genericNetFunctions.js')
 var gnf = gnfModule()
 var postJson = require('post-json')
-
-
+/*var Sync = require('sync')
+*/
 //ALL GRAPH MANIPULATION IS DONE HERE....(cy.add())
 module.exports =
 
@@ -94,6 +94,7 @@ function initialize(){
 		cy.nodes().remove()
 	}
 
+
 	function addNode (name,group) {
 		cy.add({
 	        group:"nodes",
@@ -104,8 +105,9 @@ function initialize(){
 	        position: {x: 200, y : 200},
 	        classes: group,
     	})
-    	savePositions()
-	}		
+    	console.log('this happens first')
+	}
+
 	function addDirectedEdge(source,target) {
 	     cy.add({
 	      data: {
@@ -134,6 +136,10 @@ function initialize(){
   		var name= document.getElementById('nodeName').value
   		var group = document.getElementById('nodeGroup').value
   		var networks = document.getElementById('nodeNetworks').value
+  		var initPosition = {x: 200, y: 200}
+  		
+  		document.getElementById('currentNet').value = networks
+
   		var url = 'http://localhost:5003/addNode'
 /*  		var url2 = 'http://localhost:5003/addGroup'
 */ 
@@ -143,21 +149,28 @@ function initialize(){
 /*  		postJson(url3,netName) 
 */
 			if (name && group){
-				var body = {nodeName: name, nodeNetworks: networks, nodeGroup: group}
+				var body = {nodeName: name, nodeNetworks: networks, nodeGroup: group, position: initPosition}
 
 		  		postJson(url, body, function (err, result) {
 				})
-				addNode(name,group);
+				
+				addNode(name,group)
+
+				/*Sync(function(){
+					addNode(name,group)
+					console.log('and this happens last')
+					savePositions()
+
+				});*/
+
+
 /*				loadGroups();
 				savePositions()
 */
 				//postJson(url2, body, loadGroups)
-
-				savePositions()
 				
 			}
 			else alert('Name and group are both required')
-			savePositions()
 	}
 
 function test5(){

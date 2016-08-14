@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb49', {valueEncoding: 'json'})
+var db = levelup('./myFlintDb54', {valueEncoding: 'json'})
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
@@ -36,7 +36,7 @@ io.on('connection',function(socket){
 // value: [{
 // 		 nodeName : nodeName,
 //       group: group,
-// 		 position: x, y,
+// 		 position: {x, y},
 //		 edge: [[inEdge, inEdge],[outEdge,outEdge]
 //}]
 //
@@ -259,7 +259,7 @@ app.post('/addGroup', cors(corsOption), function (req,res,next){
 
 		groupsDb.get(group, function(err,value){
 			if (err){
-				if (err.notFound){
+				if (err.otFound){
 					groupsDb.put(group, node, function(err){
 						if (err) console.log(err)
 					})
@@ -326,6 +326,7 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 		var name = params.nodeName
 		var nets= params.nodeNetworks
 		var groups = params.nodeGroup 
+		var initPosition = params.position
 
 		//TODO: parse nets to see if we're adding multiple nets or just one
 
@@ -337,6 +338,7 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 					var nodeObj = {} 
 						nodeObj.nodeName = name;
 						nodeObj.group = groups;
+						nodeObj.position=initPosition
 
 					arrayOfObjects.push(nodeObj);
 					console.log('xxx', nodeObj, arrayOfObjects)
@@ -364,6 +366,7 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 				var nodeObj= {}
 					nodeObj.nodeName=name
 					nodeObj.group = groups
+					nodeObj.position=initPosition
 
 				arrayOfObjects2.push(nodeObj)
 				db.put(nets, arrayOfObjects2, function(err){
@@ -485,21 +488,28 @@ app.post('/savePositions', cors(corsOption), function(req,res,next){
 		var positionObject = params.positionObject
 		var nodeName1 = params.name
 	
+
+
+
 		db.get(params.currentNet, function(err,value){
 			console.log('wwwwwwwwwwwwwwwwwwwww', value, typeof value)
-			var arrayOfObjects = []
+			var arrayOfObjects = value
 			
 			value.forEach(function(arrayItem){
-				if (arrayItem.nodeName = nodeName1){
+				if (arrayItem.nodeName === nodeName1){
+					console.log('fuuuuuuuuk', arrayItem.nodeName, nodeName1)
 					arrayItem.position=positionObject
-					arrayOfObjects.push(arrayItem)
-				}
+/*					arrayOfObjects.push(arrayItem)
+*/				}
 				else{
-					arrayOfObjects.push(arrayItem)
+					/*arrayOfObjects.push(arrayItem)
+					console.log('poooooooop', arrayOfObjects, 'then', arrayItem,'annnnd',arrayItem.nodeName, nodeName1)
+*/
+				console.log('dont change this nodes position its not time')
 				}
 			})
-		
-			db.put(params.currentNet, arrayOfObjects, function(err){
+
+			db.put(params.currentNet, value/*arrayOfObjects*/, function(err){
 				console.log('did it')
 			})
 

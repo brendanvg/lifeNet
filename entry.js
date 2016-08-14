@@ -26,6 +26,7 @@ loadNets.addEventListener('click',lnf.loadNets)
 
 var checkDb= document.getElementById('checkDb')
 checkDb.addEventListener('click',lnf.checkDb)
+
 function onIndexLoad () {
   lnf.loadNets()
 }
