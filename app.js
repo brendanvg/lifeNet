@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb54', {valueEncoding: 'json'})
+var db = levelup('./myFlintDb55', {valueEncoding: 'json'})
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
@@ -37,6 +37,7 @@ io.on('connection',function(socket){
 // 		 nodeName : nodeName,
 //       group: group,
 // 		 position: {x, y},
+//		 edges: {in: [inEdge1,inEdge2,.....], out: [outEdge]},
 //		 edge: [[inEdge, inEdge],[outEdge,outEdge]
 //}]
 //
@@ -338,7 +339,8 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 					var nodeObj = {} 
 						nodeObj.nodeName = name;
 						nodeObj.group = groups;
-						nodeObj.position=initPosition
+						nodeObj.position=initPosition;
+						nodeObj.edges = {in:[],out:[]}
 
 					arrayOfObjects.push(nodeObj);
 					console.log('xxx', nodeObj, arrayOfObjects)
@@ -367,6 +369,8 @@ app.post('/addNode', cors(corsOption), function(req,res,next){
 					nodeObj.nodeName=name
 					nodeObj.group = groups
 					nodeObj.position=initPosition
+					nodeObj.edges = {in:[],out:[]}
+
 
 				arrayOfObjects2.push(nodeObj)
 				db.put(nets, arrayOfObjects2, function(err){
@@ -419,6 +423,41 @@ app.post('/test', cors(corsOption), function(req,res,next){
 app.post('/addEdge', cors(corsOption), function(req,res,next){
 	body(req,res,function(err,params){
 		console.log('in Node out Node',params)
+
+		db.get(params.net, function(err,value){
+
+			value.forEach(function(arrayItem){
+				if (arrayItem.id === params.firstNode){
+					var edgeObj = arrayItem.edges
+					edgeObj.out.push(params.secondNode) 
+
+					console.log('first out edge being added', edgeObj, 'hhhh', edgeObj.out, edgeObj.in)
+
+					/*if (edgeObj.out.length === 0) { 
+						console.log('first out edge being added')
+						arrayItem.edges = {in= , out= [params.secondNode] }
+					}
+					else {
+						console.log('ANOTHER out edge being added')
+					}*/
+				}
+				if (arrayItem.id === params.secondNode){
+					var edgeObj = arrayItem.edges
+					edgeObj.out.push(params.firstNode) 
+
+					console.log('another out edge being added', edgeObj, 'hhhh', edgeObj.out, edgeObj.in)
+
+				}
+
+				else{
+					console.log('didnt match nothing')
+				}
+			})
+
+			db.put(params.currentNet, value/*arrayOfObjects*/, function(err){
+				console.log('addded edge')
+			})
+		})
 
 		edgesDb.get(params.firstNode, function(err,value){
 			if (err) {

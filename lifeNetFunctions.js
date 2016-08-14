@@ -106,7 +106,8 @@ function initialize(){
 	        classes: group,
     	})
     	console.log('this happens first')
-	}
+/*    	tapOnNodes()
+*/	}
 
 	function addDirectedEdge(source,target) {
 	     cy.add({
@@ -171,7 +172,8 @@ function initialize(){
 				
 			}
 			else alert('Name and group are both required')
-	}
+/*			tapOnNodes()
+*/	}
 
 function test5(){
 	console.log('ok now', this.id)
@@ -214,7 +216,10 @@ function test5(){
 
 	function addNewEdge(firstNodeId, secondNodeId) {
 		var url = 'http://localhost:5003/addEdge'
-		var body = {firstNode: firstNodeId, secondNode:secondNodeId} 
+		var currentNet = document.getElementById('currentNet').value
+		var body = {firstNode: firstNodeId, secondNode:secondNodeId, net: currentNet} 
+
+
 		console.log('hi1')
 		postJson(url,body, function(err,result){
 			console.log('hi2')
