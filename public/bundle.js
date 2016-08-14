@@ -472,6 +472,7 @@ function tapOnNodes () {
       }
       else {
         // console.log('nodes2',firstNodeId, secondNodeId)
+        console.log('wwooooo!!!!!!!!!!!!!!!!!!!!')
   	   addNewEdge(firstNodeId, secondNodeId)  
       // gnf.addDirectedEdge(firstNodeId, secondNodeId)
       }
@@ -566,7 +567,26 @@ function tapOnNodes () {
 	    		console.log('type', typeof y)
 	    		console.log('length of y', y.length)
 
-	    		for (i = 0; i<y.length; i++){
+	    		y.forEach(function(arrayItem){
+	    			console.log('here: ', arrayItem)
+	    			arrayItem.value.forEach(function(elem){
+	    				console.log('inn: ',elem.edges.in, 'out: ',elem.edges.out)
+	    			
+	    			})
+
+	    			/*arrayItem.value.forEach(function(arrayItem2){
+	    				console.log('aaaa', arrayItem.value)
+	    			})*/
+
+	    			/*cy.add({	
+				      data: {
+				        source: arrayItem.value.edges.out,
+				        target: arrayItem.value.edges.in
+				      }
+				    })*/
+	    		})
+
+	    		/*for (i = 0; i<y.length; i++){
 	    			// if (typeof y === "object") {
 		    			var key = y[i].key
 		    			var value = y[i].value
@@ -594,7 +614,7 @@ function tapOnNodes () {
 							    })
 		    				}
 		    			}
-	    		}
+	    		}*/
 	    	})
 	    )
 	}
