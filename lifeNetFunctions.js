@@ -24,7 +24,7 @@ function initialize(){
 		savePositions:savePositions,
 		addNewEdge: addNewEdge,
 		test: test,
-		clear: clear,
+		clearAllNodes: clearAllNodes,
 		loadGroups: loadGroups,
 		graphSpecificGroup: graphSpecificGroup,
 		enterChat: enterChat,
@@ -90,7 +90,7 @@ function initialize(){
 		})
 
 	}
-	function clear(){
+	function clearAllNodes(){
 		cy.nodes().remove()
 	}
 
@@ -233,6 +233,7 @@ function test5(){
 	}
 
 	function graphSpecificNet(){
+		clearAllNodes()
 		var net= this.id
 		document.getElementById('currentNet').value = net
 		var stream3 = hyperquest('http://localhost:5003/graphSpecificNet/'+net)
