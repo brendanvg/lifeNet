@@ -11,9 +11,9 @@ module.exports =
 
 function initialize(){
 
-	var nClicked = false;
+/*	var nClicked = false;
 	var firstNode = {}
-	var secondNode = {}
+	var secondNode = {}*/
 
 	return {
 		postNewNet: postNewNet,
@@ -28,7 +28,8 @@ function initialize(){
 		loadGroups: loadGroups,
 		graphSpecificGroup: graphSpecificGroup,
 		enterChat: enterChat,
-		checkDb:checkDb
+		checkDb:checkDb,
+		tapOnNodes: tapOnNodes
   	}
 
 
@@ -249,6 +250,10 @@ function test5(){
 	}
 
 function tapOnNodes () {
+  var nClicked = false;
+	var firstNode = {}
+	var secondNode = {}
+	var edgeClicked=false;
   cy.on('tap', 'node', function(evt){
     //second click
     if (nClicked) {

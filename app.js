@@ -426,7 +426,12 @@ app.post('/addEdge', cors(corsOption), function(req,res,next){
 
 		db.get(params.net, function(err,value){
 
+			console.log('this is my big fat value', value, 'and', typeof value)
 			value.forEach(function(arrayItem){
+			
+			console.log('should match this ',arrayItem.id)
+
+
 				if (arrayItem.id === params.firstNode){
 					var edgeObj = arrayItem.edges
 					edgeObj.out.push(params.secondNode) 
