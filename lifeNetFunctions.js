@@ -239,9 +239,41 @@ function test5(){
 		var stream3 = hyperquest('http://localhost:5003/graphSpecificNet/'+net)
 		console.log('hi77777777777777777777', net)
 		console.log('jackpot', stream3)
-		loadNodes(stream3)	
+		loadNodes(stream3)
+		tapOnNodes()	
 	}
 
+function tapOnNodes () {
+  cy.on('tap', 'node', function(evt){
+    //second click
+    if (nClicked) {
+      nClicked = false
+  	  // console.log('byee')
+      secondNode = evt.cyTarget
+      var firstNodeId= firstNode.id()
+      var secondNodeId = secondNode.id()
+      // console.log('c',firstNodeId, 'd',secondNodeId)
+      if (secondNodeId === firstNodeId){
+        console.log('clicked myself')
+        window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
+      }
+      else {
+        // console.log('nodes2',firstNodeId, secondNodeId)
+  	   addNewEdge(firstNodeId, secondNodeId)  
+      // gnf.addDirectedEdge(firstNodeId, secondNodeId)
+      }
+    }
+    //first click
+    else 
+    {
+      nClicked=true
+      firstNode= evt.cyTarget
+      // firstNodeId = firstNode.id()
+      console.log('hiii')
+      console.log('a', firstNode, 'b', firstNodeId)
+    }
+  })
+}
 
 	function graphAllNodes(){
 	  	console.log('woooo')

@@ -6,6 +6,7 @@ http.post = require('http-post')
 var gnf = gnfModule()
 var lnf = lnfModule()
 var xhr= require('node-xhr')
+var cytoscape = require('cytoscape')
 
 //ALL GRAPH SELECTION IS DONE HERE 
 
@@ -57,6 +58,7 @@ $('.groups').click(function(){
 })
 
 
+/*window.onload=function(){*/
 //nClicked=false, first click, true,second click
 var nClicked = false;
 var firstNode = {}
@@ -65,50 +67,51 @@ var edgeClicked=false;
 
 // var firstNodeId = firstNode.id()
 // var secondNodeId = secondNode.id()
+function tapOnEdges(){
+  cy.on('tap','edge', function(evt){
+    if (edgeClicked) {
+      edgeClicked=false
+      window.open('http://localhost:5003/edgeInfo/'+evt.cyTarget.id(), 'Edge Info', 'height= 470, width=470, return false') 
 
-cy.on('tap','edge', function(evt){
-  if (edgeClicked) {
-    edgeClicked=false
-    window.open('http://localhost:5003/edgeInfo/'+evt.cyTarget.id(), 'Edge Info', 'height= 470, width=470, return false') 
-
-  }
-  else {
-    edgeClicked=true
-  }
-})
-
-cy.on('tap', 'node', function(evt){
-  //second click
-  if (nClicked) {
-    nClicked = false
-	  // console.log('byee')
-    secondNode = evt.cyTarget
-    var firstNodeId= firstNode.id()
-    var secondNodeId = secondNode.id()
-    // console.log('c',firstNodeId, 'd',secondNodeId)
-    if (secondNodeId === firstNodeId){
-      console.log('clicked myself')
-      window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
     }
     else {
-      // console.log('nodes2',firstNodeId, secondNodeId)
-	   lnf.addNewEdge(firstNodeId, secondNodeId)  
-    // gnf.addDirectedEdge(firstNodeId, secondNodeId)
+      edgeClicked=true
     }
-  }
-  //first click
-  else 
-  {
-    nClicked=true
-    firstNode= evt.cyTarget
-    // firstNodeId = firstNode.id()
-    console.log('hiii')
-    console.log('a', firstNode, 'b', firstNodeId)
-  }
-})
+  })
+}
 
-
-},{"./genericNetFunctions.js":2,"./lifeNetFunctions.js":3,"http":187,"http-post":125,"node-xhr":149}],2:[function(require,module,exports){
+function tapOnNodes () {
+  cy.on('tap', 'node', function(evt){
+    //second click
+    if (nClicked) {
+      nClicked = false
+  	  // console.log('byee')
+      secondNode = evt.cyTarget
+      var firstNodeId= firstNode.id()
+      var secondNodeId = secondNode.id()
+      // console.log('c',firstNodeId, 'd',secondNodeId)
+      if (secondNodeId === firstNodeId){
+        console.log('clicked myself')
+        window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
+      }
+      else {
+        // console.log('nodes2',firstNodeId, secondNodeId)
+  	   lnf.addNewEdge(firstNodeId, secondNodeId)  
+      // gnf.addDirectedEdge(firstNodeId, secondNodeId)
+      }
+    }
+    //first click
+    else 
+    {
+      nClicked=true
+      firstNode= evt.cyTarget
+      // firstNodeId = firstNode.id()
+      console.log('hiii')
+      console.log('a', firstNode, 'b', firstNodeId)
+    }
+  })
+}
+},{"./genericNetFunctions.js":2,"./lifeNetFunctions.js":3,"cytoscape":99,"http":187,"http-post":125,"node-xhr":149}],2:[function(require,module,exports){
 var cytoscape = require('cytoscape')
 
 
@@ -438,9 +441,41 @@ function test5(){
 		var stream3 = hyperquest('http://localhost:5003/graphSpecificNet/'+net)
 		console.log('hi77777777777777777777', net)
 		console.log('jackpot', stream3)
-		loadNodes(stream3)	
+		loadNodes(stream3)
+		tapOnNodes()	
 	}
 
+function tapOnNodes () {
+  cy.on('tap', 'node', function(evt){
+    //second click
+    if (nClicked) {
+      nClicked = false
+  	  // console.log('byee')
+      secondNode = evt.cyTarget
+      var firstNodeId= firstNode.id()
+      var secondNodeId = secondNode.id()
+      // console.log('c',firstNodeId, 'd',secondNodeId)
+      if (secondNodeId === firstNodeId){
+        console.log('clicked myself')
+        window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
+      }
+      else {
+        // console.log('nodes2',firstNodeId, secondNodeId)
+  	   addNewEdge(firstNodeId, secondNodeId)  
+      // gnf.addDirectedEdge(firstNodeId, secondNodeId)
+      }
+    }
+    //first click
+    else 
+    {
+      nClicked=true
+      firstNode= evt.cyTarget
+      // firstNodeId = firstNode.id()
+      console.log('hiii')
+      console.log('a', firstNode, 'b', firstNodeId)
+    }
+  })
+}
 
 	function graphAllNodes(){
 	  	console.log('woooo')
