@@ -39,8 +39,8 @@ function initializeNet() {
   			style:{
   				'width':3,
   				'line-color':'#ccc',
-  				'target-arrow-color':'#ccc',
-  				'target-arrow-shape':'triangle'
+  				'source-arrow-color':'#ccc',
+  				'source-arrow-shape':'triangle',
   			}
   		}
   	],

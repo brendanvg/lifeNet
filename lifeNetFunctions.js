@@ -112,27 +112,14 @@ function initialize(){
 
 	function addDirectedEdge(source,target) {
 	     cy.add({
+	      group:"edges",
 	      data: {
 	        source: source,
 	        target: target
 	      }
 	    })
 	}
-
-	// function addPositionedNode (name,x1,y1) {
-	// 	console.log('at least it got to here')
-	// 	console.log('x',x1)
-	// 	console.log('y',y1)
-	// 	cy.add({
-	//         group:"nodes",
-	//         data: {
-	//           weight:75,
-	//           id:name,
-	//         },
-	//         position: {x: x1, y : y1},
- //    	})
- //    	return 'done'
-	// }		
+		
 
   	function createNewNode(){
   		var name= document.getElementById('nodeName').value
@@ -359,8 +346,8 @@ function tapOnNodes () {
 	    .pipe(
 	    	catS(function(data){
 	    		var x = data.toString()
-	    		console.log('thisisx', x)
-	    		var y = JSON.parse(x)
+/*	    		console.log('thisisx', x, typeof x)
+*/	    		var y = JSON.parse(x)
 	    		console.log('thisisy', y)
 	    		console.log('type', typeof y)
 	    		console.log('length of y', y.length)
@@ -368,51 +355,30 @@ function tapOnNodes () {
 	    		y.forEach(function(arrayItem){
 	    			console.log('here: ', arrayItem)
 	    			arrayItem.value.forEach(function(elem){
-	    				console.log('inn: ',elem.edges.in, 'out: ',elem.edges.out)
-	    			
+	    				
+	    				if (elem.edges.out) {
+	    					console.log('inn: ',elem.edges.in, 'out: ',elem.edges.out)
+		    				cy.add({	
+		    					group:"edges",
+		    					class:'edges2',
+					      		data: {
+					        		source: elem.nodeName,
+					        		target: elem.edges.out
+					      		},
+/*					      		addClass('edges2')
+*/					      		/*style:{
+					  				'width':3,
+					  				'line-color':'#ccc',
+					  				'source-arrow-color':'#ccc',
+					  				'source-arrow-shape':'triangle',
+					  			}*/
+					    	})
+	    				}	
 	    			})
-
-	    			/*arrayItem.value.forEach(function(arrayItem2){
-	    				console.log('aaaa', arrayItem.value)
-	    			})*/
-
-	    			/*cy.add({	
-				      data: {
-				        source: arrayItem.value.edges.out,
-				        target: arrayItem.value.edges.in
-				      }
-				    })*/
+	    		/*var stringStylesheet='edge{ source-arrow-shape: triangle;}';	
+	    		cy.style(stringStylesheet);	*/
 	    		})
-
-	    		/*for (i = 0; i<y.length; i++){
-	    			// if (typeof y === "object") {
-		    			var key = y[i].key
-		    			var value = y[i].value
-		        		console.log('key is '+key)
-		    			console.log('value is '+value)
-		    			var array1= value.split('!')
-		    			var inEdges = array1[0]
-		    			var outEdges= array1[1]
-
-		    			console.log('woot',array1)
-		    			var inEdges2= inEdges.split(',')
-		    			var outEdges2= outEdges.split(',')
-		    			console.log('donedone',inEdges2)
-		    			console.log('orrr', outEdges2)
-
-		    			// var array2 = array1.split(',')
-		    			for (j=0; j<inEdges2.length; j++){
-		    				if (inEdges2[j] != ''){
-		    					console.log('inners',inEdges2[j])
-		    					cy.add({
-							      data: {
-							        source: inEdges2[j],
-							        target: key
-							      }
-							    })
-		    				}
-		    			}
-	    		}*/
+	    		eles.style('.edges2{ mid-target-arrow-shape: triangle;}')
 	    	})
 	    )
 	}

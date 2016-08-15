@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb60', {valueEncoding: 'json'})
+var db = levelup('./myFlintDb63', {valueEncoding: 'json'})
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
 var netListDb= levelup('./netListDb')
@@ -425,30 +425,48 @@ app.post('/addEdge', cors(corsOption), function(req,res,next){
 
 		db.get(params.net, function(err,value){
 
-			console.log('this is my big fat value', value, 'and', typeof value)
 			
 			var updatedValue = value
+			console.log('this is my original updated value', updatedValue, 'and', typeof updatedValue)
+
 
 /*			value.forEach(function(arrayItem){
 */			
 			for (var i = 0; i < value.length; i++) {
 				if (value[i].nodeName === params.firstNode){
+
+					console.log('valuei', value[i], 'and updatedValuei ', updatedValue[i])
 /*					var edgeObj = arrayItem.edges
-*/					var newObject= value[i].edges.out.push(params.secondNode) 
-					updatedValue[i]= newObject
+*/					/*var newObject= value[i].edges.out.push(params.secondNode) 
+					updatedValue[i]= newObject*/
+					updatedValue[i].edges.out.push(params.secondNode)
 					console.log('this is what i did: ', updatedValue)
+					console.log('and this is out: ', updatedValue[i].edges.out)
 				}
 
 				if (value[i].nodeName === params.secondNode){
-					var newObject2= value[i].edges.in.push(params.firstNode)
+					/*var newObject2= value[i].edges.in.push(params.firstNode)
 					updatedValue[i]= newObject2
 					console.log('this is what i did 2: ', updatedValue)
+*/
+					console.log('implement secondNode in matching here')
 
-
+					console.log('valuei222', value[i], 'and updatedValuei22 ', updatedValue[i])
+/*					var edgeObj = arrayItem.edges
+*/					/*var newObject= value[i].edges.out.push(params.secondNode) 
+					updatedValue[i]= newObject*/
+					updatedValue[i].edges.in.push(params.firstNode)
+					console.log('this is what i did 2222: ', updatedValue)
+					console.log('and this is in 222: ', updatedValue[i].edges.out)
+			
 				}
 				else{console.log('didnt match nothing')}
 
 			}
+			db.put(params.net, updatedValue, function(err){
+				console.log('oooh no', err)
+				console.log('successfully updated')
+			})
 		})
 	})
 
