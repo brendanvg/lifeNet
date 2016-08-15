@@ -50,7 +50,7 @@ postJson1.addEventListener("click", lnf.createNewNode)
 // enterChat.addEventListener('click', lnf.enterChat)
 
 var clear = document.getElementById('clear')
-clear.addEventListener('click', lnf.clear)
+clear.addEventListener('click', lnf.clearAllNodes)
 
 $('.groups').click(function(){
   console.log('he')

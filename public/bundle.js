@@ -51,7 +51,7 @@ postJson1.addEventListener("click", lnf.createNewNode)
 // enterChat.addEventListener('click', lnf.enterChat)
 
 var clear = document.getElementById('clear')
-clear.addEventListener('click', lnf.clear)
+clear.addEventListener('click', lnf.clearAllNodes)
 
 $('.groups').click(function(){
   console.log('he')
@@ -440,7 +440,8 @@ function tapOnNodes () {
       // console.log('c',firstNodeId, 'd',secondNodeId)
       if (secondNodeId === firstNodeId){
         console.log('clicked myself')
-        window.open('http://localhost:5003/nodeInfo/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
+        var currentNet= document.getElementById('currentNet').value
+        window.open('http://localhost:5003/nodeInfo/'+currentNet+'/'+evt.cyTarget.id(), 'Node Info', 'height= 470, width=470, return false') 
       }
       else {
         // console.log('nodes2',firstNodeId, secondNodeId)

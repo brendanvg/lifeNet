@@ -88,29 +88,38 @@ app.get('/enterChat', function(req,res,next){
 })
 
 
-app.get('/nodeInfo/:key', function(req,res, next){
-		var node = req.params.key
-		console.log('hiii', node)
-		db.get(node, function(err,value){
-			if (err) console.log(err)
-			else {
-				var array= value.split(',')
-				var group = array[0]
-				
+app.get('/nodeInfo/:currentNet/:nodeName', function(req,res, next){
+	var currentNet = req.params.currentNet
+	var nodeName = req.params.nodeName
+	
+	console.log('hiii', currentNet, 'annnd', nodeName)
+	db.get(currentNet, function(err,value){
+		
+		if (err) console.log(err)
+		
+		else {
+			value.forEach(function(arrayItem){
+				if (arrayItem === nodeName) {
+					res.render('nodeInfoForm', {pageContent:arrayItem.group})
+				}
+			})
+		}
+			/*var array= value.split(',')
+			var group = array[0]
+			
 
-				res.render('nodeInfoForm', {pageContent: group})
+			res.render('nodeInfoForm', {pageContent: group})
 
-
-				// var html = h('div', [
-				// 	h('h1', value)	
-				// ])
-				// fs.createReadStream('public/nodeInfo.html')
-				// 	.pipe(hyperstream({
-				// 	'#nodeInfoContent':html.outerHTML
-				// 	}))
-				// 	.pipe(res)
-			}
-		})
+*/
+			// var html = h('div', [
+			// 	h('h1', value)	
+			// ])
+			// fs.createReadStream('public/nodeInfo.html')
+			// 	.pipe(hyperstream({
+			// 	'#nodeInfoContent':html.outerHTML
+			// 	}))
+			// 	.pipe(res)
+	})
 })
 
 
@@ -313,7 +322,7 @@ app.get('/graphAllNodes', cors(corsOption), function(req,res,next){
 app.get('/loadEdges', cors(corsOption), function(req,res,next){
 	var stream = db.createReadStream()
 	collect(stream, (err,data) => {
-		res.writeHead(200, {'content-type': 'application/JSON'})
+		res.writeHead(200, {'content-type': 'application//JSON'})
       res.end(JSON.stringify(data))
     }) 
 })
