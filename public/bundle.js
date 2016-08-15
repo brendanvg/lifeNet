@@ -347,27 +347,12 @@ function initialize(){
 				
 				addNode(name,group)
 
-				/*Sync(function(){
-					addNode(name,group)
-					console.log('and this happens last')
-					savePositions()
-
-				});*/
-
-
-/*				loadGroups();
-				savePositions()
-*/
-				//postJson(url2, body, loadGroups)
 				
 			}
 			else alert('Name and group are both required')
 /*			tapOnNodes()
 */	}
 
-function test5(){
-	console.log('ok now', this.id)
-}
 
 	function loadGroups (callback3){
 
@@ -500,47 +485,9 @@ function tapOnNodes () {
 			        classes:arrayItem.group,
 			    })
 			})
-
-			/*console.log('loadNodes what we workin wit', arrayOfOs.nodeName)
-			console.log('loadNodes what we workin wit', arrayOfOs)
-
-			console.log('type of what we workin wit',typeof(arrayOfOs))
-			for (var i = 0; i < arrayOfOs.length; i++) {
-				var nodeName= arrayOfOs[i].nodeName
-				var group = arrayOfOs[i].group
-				console.log('ooooo', nodeName)
-			}*/
 		}))
 	}
-	    	/*	var x = data.toString()
-	    		var y = JSON.parse(x)
-	    		console.log('thisisy', y.group)
-	    		console.log(	    	)
-	    			for (i = 0; i<y.length; i++){
-	    			console.log[y[i]]*/
-	    	// 		if (typeof y === "object") {
-		    // 			var key = y[i].key
-		    // 			var value = y[i].value
-		    //     		console.log('nodeee key is '+key)
-		    // 			console.log('nodeee value is '+value)
-		    			
-
-		    // 			var array= value.split(',')
-		  		// 		console.log(array)
-
-		  		// 		var netGroup = array[0]
-						// var x2= Number(array[1])
-		    //  			var y2 = Number(array[2])
-		    //  			console.log('important',x2,y2)
-
-
-		  		// 		
-		  		// 	}
-	    /*		}
-	    	})
-		)
-
-	}*/
+	    	
 
 	function loadEdges(){
 		console.log('Fuuuu')
@@ -548,39 +495,34 @@ function tapOnNodes () {
 	    .pipe(
 	    	catS(function(data){
 	    		var x = data.toString()
-/*	    		console.log('thisisx', x, typeof x)
-*/	    		var y = JSON.parse(x)
+	    		var y = JSON.parse(x)
 	    		console.log('thisisy', y)
 	    		console.log('type', typeof y)
 	    		console.log('length of y', y.length)
 
 	    		y.forEach(function(arrayItem){
 	    			console.log('here: ', arrayItem)
-	    			arrayItem.value.forEach(function(elem){
-	    				
+	    			arrayItem.value.forEach(function(elem){		
 	    				if (elem.edges.out) {
 	    					console.log('inn: ',elem.edges.in, 'out: ',elem.edges.out)
-		    				cy.add({	
-		    					group:"edges",
-		    					class:'edges2',
-					      		data: {
-					        		source: elem.nodeName,
-					        		target: elem.edges.out
-					      		},
-/*					      		addClass('edges2')
-*/					      		/*style:{
-					  				'width':3,
-					  				'line-color':'#ccc',
-					  				'source-arrow-color':'#ccc',
-					  				'source-arrow-shape':'triangle',
-					  			}*/
-					    	})
+		    				
+		    				for (var i = 0; i < elem.edges.out.length; i++) {
+		    					
+		    					cy.add({	
+						      		data: {
+						        		source: elem.nodeName,
+						        		target: elem.edges.out[i]
+						      		}
+						    	})
+
+		    				}
+
+			    				
+					
 	    				}	
 	    			})
-	    		/*var stringStylesheet='edge{ source-arrow-shape: triangle;}';	
-	    		cy.style(stringStylesheet);	*/
+	    		
 	    		})
-	    		eles.style('.edges2{ mid-target-arrow-shape: triangle;}')
 	    	})
 	    )
 	}
