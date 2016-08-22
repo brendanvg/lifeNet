@@ -246,7 +246,8 @@ function test5(){
 		console.log('hi77777777777777777777', net)
 		console.log('jackpot', stream3)
 		loadNodes(stream3)
-		tapOnNodes()	
+		tapOnNodes()
+		loadEdges()	
 	}
 
 function tapOnNodes () {
@@ -357,12 +358,11 @@ function tapOnNodes () {
 	    .pipe(
 	    	catS(function(data){
 	    		var x = data.toString()
+	    		console.log('thisisx', x)
 	    		var y = JSON.parse(x)
 	    		console.log('thisisy', y)
 	    		console.log('type', typeof y)
 	    		console.log('length of y', y.length)
-	   
-
 
 	    		for (i = 0; i<y.length; i++){
 	    			// if (typeof y === "object") {

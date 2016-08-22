@@ -3,7 +3,7 @@ var app = express()
 var body = require('body/any')
 var cors = require('cors')
 var levelup= require('levelup')
-var db = levelup('./myFlintDb55', {valueEncoding: 'json'})
+var db = levelup('./myFlintDb56', {valueEncoding: 'json'})
 var edgesDb = levelup('./edgesFlintDb')
 var groupsDb = levelup('./groupsFlintDb')
 var netsDb = levelup('./netsDb1')
@@ -312,7 +312,7 @@ app.get('/graphAllNodes', cors(corsOption), function(req,res,next){
 })
 
 app.get('/loadEdges', cors(corsOption), function(req,res,next){
-	var stream = edgesDb.createReadStream()
+	var stream = db.createReadStream()
 	collect(stream, (err,data) => {
 		res.writeHead(200, {'content-type': 'application/JSON'})
       res.end(JSON.stringify(data))
@@ -429,10 +429,10 @@ app.post('/addEdge', cors(corsOption), function(req,res,next){
 			console.log('this is my big fat value', value, 'and', typeof value)
 			value.forEach(function(arrayItem){
 			
-			console.log('should match this ',arrayItem.id)
+/*			console.log('should match this ',arrayItem.)
+*/
 
-
-				if (arrayItem.id === params.firstNode){
+				if (arrayItem.nodeName === params.firstNode){
 					var edgeObj = arrayItem.edges
 					edgeObj.out.push(params.secondNode) 
 
@@ -446,7 +446,7 @@ app.post('/addEdge', cors(corsOption), function(req,res,next){
 						console.log('ANOTHER out edge being added')
 					}*/
 				}
-				if (arrayItem.id === params.secondNode){
+				if (arrayItem.nodeName === params.secondNode){
 					var edgeObj = arrayItem.edges
 					edgeObj.out.push(params.firstNode) 
 
